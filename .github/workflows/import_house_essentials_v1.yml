@@ -1,0 +1,129 @@
+name: Import House Essentials v1
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/import_house_essentials_v1.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout TREBLO
+        uses: actions/checkout@v4
+
+      - name: Install audio tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Create target folders
+        run: |
+          mkdir -p drums/kick/warm
+          mkdir -p drums/clap
+          mkdir -p drums/hats/closed
+          mkdir -p drums/hats/open
+          mkdir -p drums/snare
+          mkdir -p synths/fm_epiano/freepats_dx7
+          mkdir -p guitars/muted
+          mkdir -p imports/house_essentials_v1
+
+      - name: Import Uzu analog-processed drums (Unlicense)
+        env:
+          UZU: https://raw.githubusercontent.com/tidalcycles/uzu-drumkit/2f3e05c70ab4d73ad053a1467adec89bd27377a0
+        run: |
+          set -euo pipefail
+          curl -fL "$UZU/bd/10_bd_switchangel.wav" -o drums/kick/warm/uzu_bd_switchangel_10.wav
+          curl -fL "$UZU/bd/11_bd_mot4i.wav" -o drums/kick/warm/uzu_bd_mot4i_11.wav
+          curl -fL "$UZU/bd/12_bd_mot4i.wav" -o drums/kick/warm/uzu_bd_mot4i_12.wav
+          curl -fL "$UZU/bd/14_bd_switchangel.wav" -o drums/kick/warm/uzu_bd_switchangel_14.wav
+          curl -fL "$UZU/cp/10_cp_switchangel.wav" -o drums/clap/uzu_cp_switchangel_10.wav
+          curl -fL "$UZU/cp/11_cp_mot4i.wav" -o drums/clap/uzu_cp_mot4i_11.wav
+          curl -fL "$UZU/hh/10_hh_switchangel.wav" -o drums/hats/closed/uzu_hh_switchangel_10.wav
+          curl -fL "$UZU/hh/11_hh_mot4i.wav" -o drums/hats/closed/uzu_hh_mot4i_11.wav
+          curl -fL "$UZU/hh/14_hh_mot4i.wav" -o drums/hats/closed/uzu_hh_mot4i_14.wav
+          curl -fL "$UZU/oh/10_oh_switchangel.wav" -o drums/hats/open/uzu_oh_switchangel_10.wav
+          curl -fL "$UZU/oh/11_oh_switchangel.wav" -o drums/hats/open/uzu_oh_switchangel_11.wav
+          curl -fL "$UZU/oh/12_oh_switchangel.wav" -o drums/hats/open/uzu_oh_switchangel_12.wav
+          curl -fL "$UZU/sd/10_sd_switchangel-bounce-2.wav" -o drums/snare/uzu_sd_switchangel_10.wav
+          curl -fL "$UZU/sd/11_sd_switchangel_3.wav" -o drums/snare/uzu_sd_switchangel_11.wav
+          curl -fL "$UZU/sd/14_sd.wav" -o drums/snare/uzu_sd_14.wav
+
+      - name: Import FreePats FM piano (CC0) and convert to WAV
+        env:
+          FMP: https://raw.githubusercontent.com/freepats/fm-piano1/89a92d10b47aea841597408f5cf2e9c8164ecb00
+        run: |
+          set -euo pipefail
+          for src in C3v80 C4v60 C4v80 C4v100 C5v80 F%232v80 F%233v80 F%234v80; do
+            curl -fL "$FMP/samples/${src}.flac" -o "/tmp/${src}.flac"
+          done
+          ffmpeg -hide_banner -loglevel error -y -i /tmp/C3v80.flac  -ar 44100 -c:a pcm_s16le synths/fm_epiano/freepats_dx7/fm_epiano_c3_v80.wav
+          ffmpeg -hide_banner -loglevel error -y -i /tmp/C4v60.flac  -ar 44100 -c:a pcm_s16le synths/fm_epiano/freepats_dx7/fm_epiano_c4_v60.wav
+          ffmpeg -hide_banner -loglevel error -y -i /tmp/C4v80.flac  -ar 44100 -c:a pcm_s16le synths/fm_epiano/freepats_dx7/fm_epiano_c4_v80.wav
+          ffmpeg -hide_banner -loglevel error -y -i /tmp/C4v100.flac -ar 44100 -c:a pcm_s16le synths/fm_epiano/freepats_dx7/fm_epiano_c4_v100.wav
+          ffmpeg -hide_banner -loglevel error -y -i /tmp/C5v80.flac  -ar 44100 -c:a pcm_s16le synths/fm_epiano/freepats_dx7/fm_epiano_c5_v80.wav
+          ffmpeg -hide_banner -loglevel error -y -i '/tmp/F%232v80.flac' -ar 44100 -c:a pcm_s16le synths/fm_epiano/freepats_dx7/fm_epiano_fs2_v80.wav
+          ffmpeg -hide_banner -loglevel error -y -i '/tmp/F%233v80.flac' -ar 44100 -c:a pcm_s16le synths/fm_epiano/freepats_dx7/fm_epiano_fs3_v80.wav
+          ffmpeg -hide_banner -loglevel error -y -i '/tmp/F%234v80.flac' -ar 44100 -c:a pcm_s16le synths/fm_epiano/freepats_dx7/fm_epiano_fs4_v80.wav
+
+      - name: Import Karoryfer Green staccato guitar round robins (CC0)
+        env:
+          GUITAR: https://raw.githubusercontent.com/sfzinstruments/karoryfer.black-and-green-guitars/b3b3249d37dc977a1a297bd2dc053e6d9b6b805c
+        run: |
+          set -euo pipefail
+          for rr in 1 2 3 4; do
+            curl -fL "$GUITAR/Samples/green/stac/staccato_a3_rr${rr}.wav" -o "guitars/muted/green_staccato_a3_rr${rr}.wav"
+            curl -fL "$GUITAR/Samples/green/stac/staccato_a4_rr${rr}.wav" -o "guitars/muted/green_staccato_a4_rr${rr}.wav"
+          done
+
+      - name: Validate audio files and write provenance snapshot
+        run: |
+          set -euo pipefail
+          find drums synths/fm_epiano guitars/muted -type f \( -name '*.wav' -o -name '*.flac' \) -print0 | while IFS= read -r -d '' f; do
+            ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 "$f" >/dev/null
+          done
+          cat > imports/house_essentials_v1/README.md <<'EOF'
+          # House Essentials v1 import
+
+          Imported 2026-09-16 for TREBLO / Strudel production.
+
+          ## Uzu drumkit
+          - Source: tidalcycles/uzu-drumkit
+          - Pinned source commit: 2f3e05c70ab4d73ad053a1467adec89bd27377a0
+          - License: Unlicense / public-domain dedication
+          - Processing: renamed only; audio otherwise unchanged
+
+          ## FreePats FM Synthesized Piano #1
+          - Source: freepats/fm-piano1
+          - Pinned source commit: 89a92d10b47aea841597408f5cf2e9c8164ecb00
+          - License: CC0 1.0 Universal
+          - Processing: source FLAC converted to 44.1 kHz 16-bit PCM WAV with ffmpeg; no normalization or creative processing
+
+          ## Karoryfer Black & Green Guitars — Green staccato
+          - Source: sfzinstruments/karoryfer.black-and-green-guitars
+          - Pinned source commit: b3b3249d37dc977a1a297bd2dc053e6d9b6b805c
+          - License: CC0 1.0 Universal
+          - Processing: selected A3/A4 staccato round robins renamed only; audio otherwise unchanged
+
+          These files are curated source material. Track-specific filtering, saturation, envelopes and cassette/analog character should be applied in Strudel rather than destructively baked into this library.
+          EOF
+          find drums/kick/warm drums/clap drums/hats/closed drums/hats/open drums/snare synths/fm_epiano/freepats_dx7 guitars/muted -type f -name '*.wav' -print0 \
+            | sort -z | xargs -0 sha256sum > imports/house_essentials_v1/SHA256SUMS.txt
+
+      - name: Commit imported samples
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add drums/kick/warm drums/clap drums/hats/closed drums/hats/open drums/snare synths/fm_epiano/freepats_dx7 guitars/muted imports/house_essentials_v1
+          if git diff --cached --quiet; then
+            echo 'Nothing to commit.'
+            exit 0
+          fi
+          git commit -m 'Import curated House Essentials v1 samples'
+          git push
