@@ -1,5 +1,5 @@
 // TREBLO CC0 bank audition — 122 BPM, one cycle = one bar
-samples("github:Izhevsky/TREBLO")
+samples('github:Izhevsky/TREBLO')
 setcpm(122/4)
 
 const kick = s("<lh_tr808_kick:0 lh_tr808_kick:1>*4")
