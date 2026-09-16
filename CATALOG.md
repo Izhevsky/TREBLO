@@ -55,6 +55,16 @@ Examples: `lh_kick_dusty`, `lh_clap_dusty`, `lh_rhodes_cm7`, `lh_tape`, `lh_viny
 
 `lh_fm_epiano_keys` index order is: `0=C3`, `1=F#3`, `2=C4`, `3=F#4`, `4=C5`.
 
+## Whole loops / sampler phrases
+
+| Bank | Count | Length | Character | Status |
+|---|---:|---:|---|---|
+| `lh_loop_drum_house` | 2 | 4 bars @ 122 BPM | Original glued house drum loops with swing, ghost percussion and analog-style bus saturation | Ready |
+| `lh_loop_keys_house` | 2 | 4 bars @ 122 BPM | Original FM/e-piano chord loops for sampler-style layering/chopping | Ready |
+| `lh_loop_synth_house` | 2 | 4 bars @ 122 BPM | Original melodic/atmospheric synth phrases | Ready |
+
+These six WAVs live in `loops/house_sampler_v1/`. They were generated deterministically from original procedural synthesis only; no third-party producer-pack audio or copyrighted recordings are embedded in them.
+
 ## Vocals
 
 | Bank | Count | Character | Status |
