@@ -49,5 +49,34 @@
     "synths/fm_epiano/freepats_dx7/fm_epiano_c4_v80.wav",
     "synths/fm_epiano/freepats_dx7/fm_epiano_fs4_v80.wav",
     "synths/fm_epiano/freepats_dx7/fm_epiano_c5_v80.wav"
+  ],
+  "lh_tr808_kick": [
+    "drums/kick/tr808_fischer/bd_50_decay_75.wav",
+    "drums/kick/tr808_fischer/bd_25_decay_50.wav"
+  ],
+  "lh_tr808_snare": [
+    "drums/snare/tr808_fischer/sd_50_decay_75.wav",
+    "drums/snare/tr808_fischer/sd_25_decay_50.wav"
+  ],
+  "lh_tr808_clap": "drums/clap/tr808_fischer/cp.wav",
+  "lh_tr808_hat_closed": "drums/hats/tr808_fischer/ch.wav",
+  "lh_tr808_hat_open": [
+    "drums/hats/tr808_fischer/oh_25.wav",
+    "drums/hats/tr808_fischer/oh_50.wav",
+    "drums/hats/tr808_fischer/oh_75.wav"
+  ],
+  "lh_tr808_rim": "drums/percussion/tr808_fischer/rs.wav",
+  "lh_tr808_cowbell": "drums/percussion/tr808_fischer/cb.wav",
+  "lh_wavestab_vcv": [
+    "stabs/wavestab_vcv/wavestab_0.wav",
+    "stabs/wavestab_vcv/wavestab_1.wav",
+    "stabs/wavestab_vcv/wavestab_2.wav"
+  ],
+  "lh_fretless_c": [
+    "bass/fretless_c/flbass_finger_short_neck.wav",
+    "bass/fretless_c/flbass_finger_short_bridge.wav",
+    "bass/fretless_c/flbass_pick_short.wav",
+    "bass/fretless_c/flbass_palm_mute.wav",
+    "bass/fretless_c/flbass_ghost.wav"
   ]
 }

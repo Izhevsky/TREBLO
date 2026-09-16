@@ -90,6 +90,73 @@ Files:
 
 SHA-256 hashes for all imported binaries are stored in `imports/house_essentials_v1/SHA256SUMS.txt`; the import workflow pins source commits for reproducibility.
 
+## CC0 analog expansion — acquired 2026-09-16
+
+### Michael Fischer / Technopolis TR-808
+
+Files:
+- `drums/kick/tr808_fischer/bd_50_decay_75.wav`
+- `drums/kick/tr808_fischer/bd_25_decay_50.wav`
+- `drums/snare/tr808_fischer/sd_50_decay_75.wav`
+- `drums/snare/tr808_fischer/sd_25_decay_50.wav`
+- `drums/clap/tr808_fischer/cp.wav`
+- `drums/hats/tr808_fischer/ch.wav`
+- `drums/hats/tr808_fischer/oh_25.wav`
+- `drums/hats/tr808_fischer/oh_50.wav`
+- `drums/hats/tr808_fischer/oh_75.wav`
+- `drums/percussion/tr808_fischer/rs.wav`
+- `drums/percussion/tr808_fischer/cb.wav`
+
+- Source: `tidalcycles/sounds-tr808-fischer`
+- Creator/copyright metadata: Michael Fischer / Technopolis
+- Original source commit: `85fbecf1bec32553395625ea659e2a56dfd7c0e1`
+- Downloaded: 2026-09-16
+- License: CC0 1.0 Universal
+- Attribution required: no
+- Processing: renamed only; original WAV bytes preserved
+- Verified metadata: `_soundmeta/bd8.json`, `sd8.json`, `cp8.json`, `ch8.json`, `oh8.json`, `rs8.json`, `cb8.json`
+
+### Zach Lannes — VCV Rack wavetable stabs
+
+Files:
+- `stabs/wavestab_vcv/wavestab_0.wav`
+- `stabs/wavestab_vcv/wavestab_1.wav`
+- `stabs/wavestab_vcv/wavestab_2.wav`
+
+- Source: `lannzach/sounds-wavestab`
+- Creator: Zach Lannes
+- Original source commit: `d3cfdf1d11afd5984be13a5f027cd970a6b21373`
+- Provenance: created in VCV Rack
+- Downloaded: 2026-09-16
+- License: CC0 1.0 Universal
+- Attribution required: no
+- Processing: renamed only; original WAV bytes preserved
+- Verified metadata: `wavestab.cleanmeta`
+
+### Bernard Gray — fretless bass
+
+Files:
+- `bass/fretless_c/flbass_finger_short_neck.wav`
+- `bass/fretless_c/flbass_finger_short_bridge.wav`
+- `bass/fretless_c/flbass_pick_short.wav`
+- `bass/fretless_c/flbass_palm_mute.wav`
+- `bass/fretless_c/flbass_ghost.wav`
+
+- Source: `cleary/samples-flbass`
+- Creator: Bernard Gray
+- Instrument/chain: Maton JB4 fretless bass; Aguilar TH500 DI; Focusrite Scarlett 8i8
+- Original source commit: `f0c5f4ee19c2825060a5d5bfda9508f601e81b20`
+- Downloaded: 2026-09-16
+- License: CC0 1.0 Universal
+- Attribution required: no
+- Source processing: recorded dry and normalized to -1 dB by the creator
+- TREBLO processing: renamed only; original WAV bytes preserved
+- Verified metadata: `flbass.cleanmeta`, `README.md`, `LICENSE`
+
+### Excluded after review
+
+`tidalcycles/sounds-Dirty` was reviewed but not imported: its relevant TR-909 metadata declares `CC-BY-SA-NC`, which conflicts with this repository's commercial-use-safe source policy.
+
 ## Template — Treblo generation
 
 ### `filename.wav`

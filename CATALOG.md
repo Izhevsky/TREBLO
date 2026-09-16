@@ -18,18 +18,25 @@ Examples: `lh_kick_dusty`, `lh_clap_dusty`, `lh_rhodes_cm7`, `lh_tape`, `lh_viny
 | `lh_ohh_uzu` | 3 | Short open hats for offbeat house accents | Ready |
 | `lh_snare_uzu` | 3 | Electronic snares for quiet clap layering / fills | Ready |
 | `lh_deep_cassette_12x_reel` | 1 reel | Existing custom cassette-style kick reel | Reel / not sliced |
+| `lh_tr808_kick` | 2 | Medium/long classic analog 808 kick | Ready; CC0 |
+| `lh_tr808_snare` | 2 | Medium/long classic analog 808 snare | Ready; CC0 |
+| `lh_tr808_clap` | 1 | Classic 808 clap | Ready; CC0 |
+| `lh_tr808_hat_closed` | 1 | Closed analog hat | Ready; CC0 |
+| `lh_tr808_hat_open` | 3 | Short/medium/long open analog hats | Ready; CC0 |
+| `lh_tr808_rim` | 1 | 808 rim shot | Ready; CC0 |
+| `lh_tr808_cowbell` | 1 | 808 cowbell | Ready; CC0 |
 
 ## Bass
 
 | Bank | Count | Character | Status |
 |---|---:|---|---|
-| — | 0 | — | Waiting for samples |
+| `lh_fretless_c` | 5 | Dry C2 fretless bass: finger, pick, palm mute and ghost articulations | Ready; CC0 |
 
 ## Chords / Stabs
 
 | Bank | Count | Character | Status |
 |---|---:|---|---|
-| — | 0 | — | Waiting for dedicated chord/stab one-shots |
+| `lh_wavestab_vcv` | 3 | Plucky/oscillating modular wavetable stabs made in VCV Rack | Ready; CC0 |
 
 ## Guitars
 

@@ -8,7 +8,11 @@ Custom sample library for Strudel projects focused on Lo-Fi House, Stoner House,
 samples('github:Izhevsky/TREBLO')
 ```
 
-The repository uses `strudel.json` in the root as the sample map.
+The repository uses `strudel.json` in the root as the sample map. Try `examples/cc0_bank_audition.js` after loading the repository.
+
+## Sound design note
+
+The public-domain banks are kept deliberately dry. Finished character should come from selection plus subtle Strudel processing: filtering, envelope shaping, gain staging, short room, small timing offsets and restrained saturation.
 
 ## Conventions
 
