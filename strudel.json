@@ -38,6 +38,13 @@
     "guitars/muted/green_staccato_a4_rr3.wav",
     "guitars/muted/green_staccato_a4_rr4.wav"
   ],
+  "lh_fm_epiano": {
+    "c3": "synths/fm_epiano/freepats_dx7/fm_epiano_c3_v80.wav",
+    "f#3": "synths/fm_epiano/freepats_dx7/fm_epiano_fs3_v80.wav",
+    "c4": "synths/fm_epiano/freepats_dx7/fm_epiano_c4_v80.wav",
+    "f#4": "synths/fm_epiano/freepats_dx7/fm_epiano_fs4_v80.wav",
+    "c5": "synths/fm_epiano/freepats_dx7/fm_epiano_c5_v80.wav"
+  },
   "lh_fm_epiano_c4_vel": [
     "synths/fm_epiano/freepats_dx7/fm_epiano_c4_v60.wav",
     "synths/fm_epiano/freepats_dx7/fm_epiano_c4_v80.wav",
