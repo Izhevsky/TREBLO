@@ -85,5 +85,17 @@
     "bass/fretless_c/flbass_pick_short.wav",
     "bass/fretless_c/flbass_palm_mute.wav",
     "bass/fretless_c/flbass_ghost.wav"
+  ],
+  "lh_loop_drum_house": [
+    "loops/house_sampler_v1/house_drum_loop_a.wav",
+    "loops/house_sampler_v1/house_drum_loop_b.wav"
+  ],
+  "lh_loop_keys_house": [
+    "loops/house_sampler_v1/house_keys_loop_a.wav",
+    "loops/house_sampler_v1/house_keys_loop_b.wav"
+  ],
+  "lh_loop_synth_house": [
+    "loops/house_sampler_v1/house_synth_loop_a.wav",
+    "loops/house_sampler_v1/house_synth_loop_b.wav"
   ]
 }
