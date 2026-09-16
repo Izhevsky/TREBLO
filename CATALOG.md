@@ -12,7 +12,12 @@ Examples: `lh_kick_dusty`, `lh_clap_dusty`, `lh_rhodes_cm7`, `lh_tape`, `lh_viny
 
 | Bank | Count | Character | Status |
 |---|---:|---|---|
-| — | 0 | — | Waiting for samples |
+| `lh_kick_uzu` | 4 | Analog-processed / synthesized compact electronic kicks; Switch Angel + Mot4i | Ready |
+| `lh_clap_uzu` | 2 | Short electronic claps with analog-processing character | Ready |
+| `lh_chh_uzu` | 3 | Dark/compact closed hats, suitable for swung house patterns | Ready |
+| `lh_ohh_uzu` | 3 | Short open hats for offbeat house accents | Ready |
+| `lh_snare_uzu` | 3 | Electronic snares for quiet clap layering / fills | Ready |
+| `lh_deep_cassette_12x_reel` | 1 reel | Existing custom cassette-style kick reel | Reel / not sliced |
 
 ## Bass
 
@@ -24,19 +29,23 @@ Examples: `lh_kick_dusty`, `lh_clap_dusty`, `lh_rhodes_cm7`, `lh_tape`, `lh_viny
 
 | Bank | Count | Character | Status |
 |---|---:|---|---|
-| — | 0 | — | Waiting for samples |
+| — | 0 | — | Waiting for dedicated chord/stab one-shots |
 
 ## Guitars
 
 | Bank | Count | Character | Status |
 |---|---:|---|---|
-| — | 0 | — | Waiting for samples |
+| `lh_guitar_green_a3` | 4 | Real Gretsch Anniversary staccato A3 round robins; dry, short, useful for muted/funk chops | Ready |
+| `lh_guitar_green_a4` | 4 | Real Gretsch Anniversary staccato A4 round robins | Ready |
 
-## Synths
+## Synths / Keys
 
 | Bank | Count | Character | Status |
 |---|---:|---|---|
-| — | 0 | — | Waiting for samples |
+| `lh_fm_epiano_c4_vel` | 3 | DX7-style FM electric piano C4 at velocity 60/80/100 | Ready |
+| `lh_fm_epiano_keys` | 5 | DX7-style FM piano anchors: C3, F#3, C4, F#4, C5 at v80 | Ready; use documented sample index / pitch handling |
+
+`lh_fm_epiano_keys` index order is: `0=C3`, `1=F#3`, `2=C4`, `3=F#4`, `4=C5`.
 
 ## Vocals
 
@@ -49,6 +58,10 @@ Examples: `lh_kick_dusty`, `lh_clap_dusty`, `lh_rhodes_cm7`, `lh_tape`, `lh_viny
 | Bank | Count | Character | Status |
 |---|---:|---|---|
 | — | 0 | — | Waiting for samples |
+
+## Curated imports
+
+`imports/house_essentials_v1/` contains the provenance snapshot and SHA-256 checksums for the first public-domain/permissive production import.
 
 ## Maintenance rule
 
