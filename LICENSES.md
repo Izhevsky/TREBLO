@@ -11,6 +11,16 @@ This repository may contain samples from different permitted sources. The licens
 5. CC BY material with attribution preserved
 6. Other permissive material only after its terms are checked
 
+## Current external sample families
+
+| Family | Upstream | License / permission basis | Redistribution in TREBLO |
+|---|---|---|---|
+| Uzu selected drums | `tidalcycles/uzu-drumkit` | Unlicense / public-domain dedication | Permitted |
+| FreePats FM Synthesized Piano #1 | `freepats/fm-piano1` | CC0 1.0 Universal | Permitted |
+| Karoryfer Black & Green Guitars — selected Green staccato samples | `sfzinstruments/karoryfer.black-and-green-guitars` | CC0 1.0 Universal | Permitted |
+
+Exact imported filenames, source commits and processing are recorded in `SOURCES.md` and `imports/house_essentials_v1/`.
+
 ## Avoid by default
 
 - material with unknown licensing
