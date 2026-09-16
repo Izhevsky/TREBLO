@@ -49,6 +49,7 @@ Examples: `lh_kick_dusty`, `lh_clap_dusty`, `lh_rhodes_cm7`, `lh_tape`, `lh_viny
 
 | Bank | Count | Character | Status |
 |---|---:|---|---|
+| `lh_fm_epiano` | 5 pitched anchors | DX7-style FM electric piano mapped by note for direct `note(...).s('lh_fm_epiano')` playback | Ready |
 | `lh_fm_epiano_c4_vel` | 3 | DX7-style FM electric piano C4 at velocity 60/80/100 | Ready |
 | `lh_fm_epiano_keys` | 5 | DX7-style FM piano anchors: C3, F#3, C4, F#4, C5 at v80 | Ready; use documented sample index / pitch handling |
 
