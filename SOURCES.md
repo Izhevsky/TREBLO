@@ -14,6 +14,82 @@ Every audio file added to this repository should have a provenance entry here.
 - Prompt ID for Treblo-generated material
 - Notes
 
+## House Essentials v1 — acquired 2026-09-16
+
+### Uzu drumkit family
+
+Files:
+- `drums/kick/warm/uzu_bd_switchangel_10.wav`
+- `drums/kick/warm/uzu_bd_mot4i_11.wav`
+- `drums/kick/warm/uzu_bd_mot4i_12.wav`
+- `drums/kick/warm/uzu_bd_switchangel_14.wav`
+- `drums/clap/uzu_cp_switchangel_10.wav`
+- `drums/clap/uzu_cp_mot4i_11.wav`
+- `drums/hats/closed/uzu_hh_switchangel_10.wav`
+- `drums/hats/closed/uzu_hh_mot4i_11.wav`
+- `drums/hats/closed/uzu_hh_mot4i_14.wav`
+- `drums/hats/open/uzu_oh_switchangel_10.wav`
+- `drums/hats/open/uzu_oh_switchangel_11.wav`
+- `drums/hats/open/uzu_oh_switchangel_12.wav`
+- `drums/snare/uzu_sd_switchangel_10.wav`
+- `drums/snare/uzu_sd_switchangel_11.wav`
+- `drums/snare/uzu_sd_14.wav`
+
+- Source: `tidalcycles/uzu-drumkit`
+- Creators / contributors: Switch Angel, Mot4i; repository contributor notes identify Mot4i's analog-processed samples and Switch Angel's synthesized drums processed with an LA76-style analog compressor
+- Original source commit: `2f3e05c70ab4d73ad053a1467adec89bd27377a0`
+- Downloaded: 2026-09-16
+- License: Unlicense / public-domain dedication
+- Attribution required: no
+- Processing: renamed only; audio unchanged
+- Notes: curated for compact lo-fi/deep-house kick, clap, hat and snare duties.
+
+### FreePats FM Synthesized Piano #1
+
+Files:
+- `synths/fm_epiano/freepats_dx7/fm_epiano_c3_v80.wav`
+- `synths/fm_epiano/freepats_dx7/fm_epiano_c4_v60.wav`
+- `synths/fm_epiano/freepats_dx7/fm_epiano_c4_v80.wav`
+- `synths/fm_epiano/freepats_dx7/fm_epiano_c4_v100.wav`
+- `synths/fm_epiano/freepats_dx7/fm_epiano_c5_v80.wav`
+- `synths/fm_epiano/freepats_dx7/fm_epiano_fs2_v80.wav`
+- `synths/fm_epiano/freepats_dx7/fm_epiano_fs3_v80.wav`
+- `synths/fm_epiano/freepats_dx7/fm_epiano_fs4_v80.wav`
+
+- Source: `freepats/fm-piano1`
+- Creator: Roberto / FreePats
+- Recording method: recorded from the Hexter software synthesizer; designed to imitate the Yamaha DX7 `E. Piano 1` sound
+- Original source commit: `89a92d10b47aea841597408f5cf2e9c8164ecb00`
+- Downloaded: 2026-09-16
+- License: CC0 1.0 Universal
+- Attribution required: no
+- Processing: source FLAC converted to 44.1 kHz 16-bit PCM WAV with ffmpeg; no normalization, compression, EQ or creative processing
+- Notes: intended for richer 1980s/lo-fi electric-piano layers and chord punctuation. Pitch/root is encoded in each filename.
+
+### Karoryfer Black & Green Guitars — Green staccato
+
+Files:
+- `guitars/muted/green_staccato_a3_rr1.wav`
+- `guitars/muted/green_staccato_a3_rr2.wav`
+- `guitars/muted/green_staccato_a3_rr3.wav`
+- `guitars/muted/green_staccato_a3_rr4.wav`
+- `guitars/muted/green_staccato_a4_rr1.wav`
+- `guitars/muted/green_staccato_a4_rr2.wav`
+- `guitars/muted/green_staccato_a4_rr3.wav`
+- `guitars/muted/green_staccato_a4_rr4.wav`
+
+- Source: `sfzinstruments/karoryfer.black-and-green-guitars`
+- Original recording: green Gretsch Anniversary guitar
+- Recorded by: Brian Wood
+- Original source commit: `b3b3249d37dc977a1a297bd2dc053e6d9b6b805c`
+- Downloaded: 2026-09-16
+- License: CC0 1.0 Universal (repository LICENSE)
+- Attribution required: no under CC0
+- Processing: selected A3/A4 staccato round robins renamed only; audio unchanged
+- Notes: dry real-instrument material for muted disco/funk chops; preserve round-robin variation instead of repeating one hit.
+
+SHA-256 hashes for all imported binaries are stored in `imports/house_essentials_v1/SHA256SUMS.txt`; the import workflow pins source commits for reproducibility.
+
 ## Template — Treblo generation
 
 ### `filename.wav`
