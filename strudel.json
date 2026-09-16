@@ -1,4 +1,53 @@
 {
   "_base": "https://raw.githubusercontent.com/Izhevsky/TREBLO/main/",
-  "lh_deep_cassette_12x_reel": "drums/kick/deep_cassette_12x/deep_cassette_12x_reel.ogg"
+  "lh_deep_cassette_12x_reel": "drums/kick/deep_cassette_12x/deep_cassette_12x_reel.ogg",
+  "lh_kick_uzu": [
+    "drums/kick/warm/uzu_bd_switchangel_10.wav",
+    "drums/kick/warm/uzu_bd_mot4i_11.wav",
+    "drums/kick/warm/uzu_bd_mot4i_12.wav",
+    "drums/kick/warm/uzu_bd_switchangel_14.wav"
+  ],
+  "lh_clap_uzu": [
+    "drums/clap/uzu_cp_switchangel_10.wav",
+    "drums/clap/uzu_cp_mot4i_11.wav"
+  ],
+  "lh_chh_uzu": [
+    "drums/hats/closed/uzu_hh_switchangel_10.wav",
+    "drums/hats/closed/uzu_hh_mot4i_11.wav",
+    "drums/hats/closed/uzu_hh_mot4i_14.wav"
+  ],
+  "lh_ohh_uzu": [
+    "drums/hats/open/uzu_oh_switchangel_10.wav",
+    "drums/hats/open/uzu_oh_switchangel_11.wav",
+    "drums/hats/open/uzu_oh_switchangel_12.wav"
+  ],
+  "lh_snare_uzu": [
+    "drums/snare/uzu_sd_switchangel_10.wav",
+    "drums/snare/uzu_sd_switchangel_11.wav",
+    "drums/snare/uzu_sd_14.wav"
+  ],
+  "lh_guitar_green_a3": [
+    "guitars/muted/green_staccato_a3_rr1.wav",
+    "guitars/muted/green_staccato_a3_rr2.wav",
+    "guitars/muted/green_staccato_a3_rr3.wav",
+    "guitars/muted/green_staccato_a3_rr4.wav"
+  ],
+  "lh_guitar_green_a4": [
+    "guitars/muted/green_staccato_a4_rr1.wav",
+    "guitars/muted/green_staccato_a4_rr2.wav",
+    "guitars/muted/green_staccato_a4_rr3.wav",
+    "guitars/muted/green_staccato_a4_rr4.wav"
+  ],
+  "lh_fm_epiano_c4_vel": [
+    "synths/fm_epiano/freepats_dx7/fm_epiano_c4_v60.wav",
+    "synths/fm_epiano/freepats_dx7/fm_epiano_c4_v80.wav",
+    "synths/fm_epiano/freepats_dx7/fm_epiano_c4_v100.wav"
+  ],
+  "lh_fm_epiano_keys": [
+    "synths/fm_epiano/freepats_dx7/fm_epiano_c3_v80.wav",
+    "synths/fm_epiano/freepats_dx7/fm_epiano_fs3_v80.wav",
+    "synths/fm_epiano/freepats_dx7/fm_epiano_c4_v80.wav",
+    "synths/fm_epiano/freepats_dx7/fm_epiano_fs4_v80.wav",
+    "synths/fm_epiano/freepats_dx7/fm_epiano_c5_v80.wav"
+  ]
 }
