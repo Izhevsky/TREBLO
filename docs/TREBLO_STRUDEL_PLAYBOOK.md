@@ -205,6 +205,36 @@ Important: the bridge should reduce density without completely killing pulse. A 
 6. Keep fixed kick identity once the groove is approved; vary velocity/filter/mix before swapping the kick sample.
 7. Continuous vinyl/noise is optional. The track must groove without it.
 
+
+### Critical Strudel string rule: single quotes for literal URLs/paths
+
+The main Strudel editor transpiler treats **double-quoted strings** as Mini-Notation in many contexts. Therefore a literal URL/path written like:
+
+```js
+samples({
+  x: "drums/kick/warm/uzu_bd_switchangel_10.wav"
+}, "https://raw.githubusercontent.com/Izhevsky/TREBLO/main/")
+```
+
+can be routed into the Mini parser and fail on the first `/` with an error such as:
+
+`[mini] parse error ... "/" found`.
+
+For **literal strings that must NOT be Mini-Notation**, use **single quotes**:
+
+```js
+samples({
+  x: 'drums/kick/warm/uzu_bd_switchangel_10.wav'
+}, 'https://raw.githubusercontent.com/Izhevsky/TREBLO/main/')
+
+s("x*4")
+```
+
+Rule for TREBLO code generation:
+- Mini patterns inside `s(...)`, `note(...)`, `struct(...)`, etc. may use double quotes.
+- Literal URLs, repository shortcuts, file paths, object string values and other non-pattern strings should default to single quotes.
+- If an error begins with `[mini]` and points at a slash inside a URL/path, inspect quote style before investigating CORS, WAV encoding or GitHub availability.
+
 ---
 
 ## Promotion rule
