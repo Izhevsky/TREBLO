@@ -215,3 +215,32 @@ A pattern/sample/recipe becomes **GOLD** after:
 3. source/license/provenance is known where applicable,
 4. the exact code/sample reference is recorded here.
 
+
+
+## User-recorded melody intake for Strudel
+
+When the user records new melodic material for a current house track, request **dry WAV takes** and preserve the original performance. Preferred capture:
+
+- 122 BPM unless the track says otherwise;
+- 4/4;
+- current key noted in the track spec;
+- 44.1 or 48 kHz WAV, preferably 24-bit;
+- no reverb, delay, limiter or master processing;
+- peaks roughly between -12 and -6 dBFS;
+- start exactly on bar 1 when possible;
+- upload separate files for each musical role.
+
+For the current 96-bar A-minor reconstruction branch, the most useful recording slots are:
+
+1. **MAIN HOOK — 8 bars**: sparse, memorable, mostly A minor pentatonic / A natural minor; leave space between phrases.
+2. **COUNTER HOOK — 4 bars**: higher register, answer the main hook, preferably enters off-beat.
+3. **MUTED / STACCATO RIFF — 4 bars**: rhythmic, short notes; works especially well on guitar/e-piano.
+4. **BRIDGE PHRASE — 8 bars**: longer notes and more air; fewer attacks than the main hook.
+5. **ONE-SHOT STABS**: isolated clean notes/chords for future slicing and repitching.
+
+After upload:
+- keep the original dry take;
+- make trimmed/aligned derivatives separately;
+- document BPM/key/bar length/source/processing;
+- add only user-owned or otherwise redistributable audio to TREBLO;
+- add the resulting sample map to `strudel.json` only after browser audition.
