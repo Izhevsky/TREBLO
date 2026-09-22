@@ -65,6 +65,23 @@ Examples: `lh_kick_dusty`, `lh_clap_dusty`, `lh_rhodes_cm7`, `lh_tape`, `lh_viny
 
 These six WAVs live in `loops/house_sampler_v1/`. They were generated deterministically from original procedural synthesis only; no third-party producer-pack audio or copyrighted recordings are embedded in them.
 
+
+## Production favorites / Gold picks
+
+These are the first-choice TREBLO banks for fast Lo-Fi / Stoner / Analog House prototyping. They are not a replacement for auditioning the full catalog.
+
+- **Kick identity:** `lh_kick_uzu`
+- **Low kick reinforcement:** `lh_tr808_kick`
+- **Clap/snare:** `lh_clap_uzu` + quiet `lh_snare_uzu`
+- **Closed/open hats:** `lh_chh_uzu` / `lh_ohh_uzu`
+- **80s house harmony:** `lh_fm_epiano`
+- **Organic bass colour:** `lh_fretless_c`
+- **Muted disco/funk guitar:** `lh_guitar_green_a3`, `lh_guitar_green_a4`
+- **Short modular accents:** `lh_wavestab_vcv`
+- **Sampler/MPC-style layers:** `lh_loop_drum_house`, `lh_loop_keys_house`, `lh_loop_synth_house`
+
+Reusable code recipes and approved hook/arrangement ideas are tracked in `docs/TREBLO_STRUDEL_PLAYBOOK.md`.
+
 ## Vocals
 
 | Bank | Count | Character | Status |
