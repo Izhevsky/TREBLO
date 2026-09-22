@@ -235,6 +235,29 @@ Rule for TREBLO code generation:
 - Literal URLs, repository shortcuts, file paths, object string values and other non-pattern strings should default to single quotes.
 - If an error begins with `[mini]` and points at a slash inside a URL/path, inspect quote style before investigating CORS, WAV encoding or GitHub availability.
 
+
+### Runtime-verified external sample loader — 2026-09-22
+
+Confirmed by the user in the current browser Strudel session:
+
+```js
+samples({
+  x: 'drums/kick/warm/uzu_bd_switchangel_10.wav'
+}, 'https://raw.githubusercontent.com/Izhevsky/TREBLO/main/')
+
+setcpm(122 / 4)
+
+s("x*4").gain(.7)
+```
+
+Status:
+- GitHub resource exists: VERIFIED.
+- Direct `samples(map, baseURL)` loader with **single-quoted** path/base URL: RUNTIME_VERIFIED.
+- `uzu_bd_switchangel_10.wav`: HUMAN_AUDIBLE_VERIFIED in Strudel.
+- Previous double-quoted loader failures were quote/transpiler errors, not evidence of bad WAV data.
+
+Do not generalize this verification to every TREBLO bank until each new source is auditioned.
+
 ---
 
 ## Promotion rule
