@@ -27,3 +27,13 @@ The public-domain banks are kept deliberately dry. Finished character should com
 - keep requested future samples in `SAMPLE_REQUESTS.md`
 
 See `CATALOG.md` for the library inventory and `LICENSES.md` for licensing notes.
+
+
+## Reusable production playbook
+
+Approved Strudel hooks, groove DNA, sound-layering recipes, runtime lessons and arrangement blueprints are maintained in:
+
+- `docs/TREBLO_STRUDEL_PLAYBOOK.md`
+- `examples/screenshot_groove_reusable_core_v1.js`
+
+The playbook separates repository-owned/redistributable TREBLO assets from references to Strudel built-in banks.
