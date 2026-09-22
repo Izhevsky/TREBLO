@@ -258,6 +258,31 @@ Status:
 
 Do not generalize this verification to every TREBLO bank until each new source is auditioned.
 
+
+### Runtime-verified TREBLO audition set — 2026-09-22
+
+The user confirmed that the following combined audition plays correctly in the current Strudel browser session:
+
+- `uzu_bd_switchangel_10.wav`
+- `bd_50_decay_75.wav`
+- `uzu_cp_switchangel_10.wav`
+- `uzu_hh_switchangel_10.wav`
+- `uzu_oh_switchangel_10.wav`
+- `rs.wav`
+- `cb.wav`
+- Gretsch staccato A3/A4 round-robin files:
+  - `green_staccato_a3_rr1.wav`
+  - `green_staccato_a3_rr2.wav`
+  - `green_staccato_a4_rr1.wav`
+  - `green_staccato_a4_rr2.wav`
+
+Status for this exact audition set:
+- direct GitHub loader with single-quoted literals: RUNTIME_VERIFIED
+- audio playback in the user's Strudel session: HUMAN_AUDIBLE_VERIFIED
+- safe to use as the external-sample foundation of the current 96-bar screenshot reconstruction branch
+
+This does **not** automatically verify other TREBLO banks such as FM e-piano, fretless bass, wavestabs or loops. Test those separately before production use.
+
 ---
 
 ## Promotion rule
