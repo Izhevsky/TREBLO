@@ -342,3 +342,35 @@ After upload:
 - document BPM/key/bar length/source/processing;
 - add only user-owned or otherwise redistributable audio to TREBLO;
 - add the resulting sample map to `strudel.json` only after browser audition.
+
+
+### v4.6 ROBO safe-mix / crackle lesson — 2026-09-22
+
+User feedback: the beat was audibly crackling/rasping.
+
+Inspection of the four uploaded ROBO WAVs showed no sample-level clipping:
+- ROBOTER peak ≈ -16.0 dBFS
+- ROBO KICK peak ≈ -10.8 dBFS
+- ROBO SNARE peak ≈ -4.9 dBFS
+- ROBO KICK + SNARE peak ≈ -4.2 dBFS
+
+Therefore the first production response is to treat the crackle as **mix-bus / summed-layer overload or browser audio load**, not as clipped source WAVs.
+
+v4.6 changes:
+- MASTER reduced from 0.76 to 0.55.
+- Main kick / 808 body / clap / hats / bass / harmony gains reduced.
+- Peak sections use fewer simultaneous layers.
+- Loudness increase is created by arrangement density, not by louder kick/clap variants.
+- ROBO kick/snare replace existing drum layers in the 2-bar ROBO takeover rather than stacking on top of them.
+- ROBOTER gets its own low-frequency space in the first bridge cell; normal synth bass is removed there.
+- Old bowed/violin-like triangle pad remains removed.
+
+Local ROBO sample import:
+- Use Strudel Sounds → Import Sounds → Import Sounds Folder.
+- Folder structure should expose a `robo(4)` bank:
+  - `robo:0` ROBOTER semibass
+  - `robo:1` kick
+  - `robo:2` snare
+  - `robo:3` kick+snare composite fill
+
+Public GitHub audio upload is intentionally withheld for this pack until redistribution rights are confirmed. The uploaded WAV metadata identifies Kraftwerk / "Die Roboter", so keep the audio private/local and store only code, analysis and integration notes in the public repository unless provenance/rights are clarified.
