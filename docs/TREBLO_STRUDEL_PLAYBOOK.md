@@ -283,6 +283,26 @@ Status for this exact audition set:
 
 This does **not** automatically verify other TREBLO banks such as FM e-piano, fretless bass, wavestabs or loops. Test those separately before production use.
 
+
+### Runtime-verified melodic colour banks — 2026-09-22
+
+The user separately confirmed successful playback of:
+
+- FM e-piano: `synths/fm_epiano/freepats_dx7/fm_epiano_c4_v80.wav`
+- fretless bass: `bass/fretless_c/flbass_finger_short_neck.wav`
+- VCV wavestab: `stabs/wavestab_vcv/wavestab_0.wav`
+
+Status:
+- each resource: RUNTIME_VERIFIED in the current browser session
+- each resource: HUMAN_AUDIBLE_VERIFIED
+- safe to use as low-level colour layers in the current 96-bar branch
+- their fixed sample pitch still matters; avoid pretending one sample is a full multisample instrument until pitch mapping/repitch behavior is explicitly qualified
+
+v4.4 production rule:
+- FM C4 is used only as a quiet tine/transient colour where C is harmonically safe.
+- fretless C is used as a sparse ghost articulation only around the C-root portion of the 4-bar harmony cycle.
+- VCV wavestab is high-passed and used mainly as a transition texture, so uncertain fundamental pitch does not dominate the harmony.
+
 ---
 
 ## Promotion rule
