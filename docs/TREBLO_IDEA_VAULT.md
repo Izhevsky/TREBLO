@@ -119,3 +119,28 @@ For a future 122 BPM deep/stoner-house track:
 - use choir only as a late climax event;
 - create variation primarily with mask/probability and time-density changes.
 
+
+
+## Learning principle — “наслушанность / насмотренность”
+
+Use reference code as vocabulary training, not as a template to copy verbatim.
+
+What to retain from strong examples:
+- unusual but effective sound-bank choices;
+- rhythm-generation strategies;
+- scale / pitch-constraining techniques;
+- phrasing density and use of silence;
+- arrangement pacing;
+- timbral contrast;
+- modulation / FX movement;
+- probability and masking strategies;
+- ways of creating development from a small amount of source material.
+
+For new TREBLO generations:
+1. recombine learned techniques in new harmonic/rhythmic contexts;
+2. prefer transformation and synthesis over literal reproduction;
+3. preserve the musical principle, not the surface sequence;
+4. promote only techniques that work musically in our own tracks;
+5. keep building a broader internal vocabulary so first-pass generations become stronger over time.
+
+This vault is therefore a **musical coding reference library / listening-and-looking memory**, not a collection of snippets to imitate one-to-one.
