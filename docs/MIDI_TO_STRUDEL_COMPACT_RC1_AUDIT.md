@@ -2,7 +2,36 @@
 
 Date: 2026-09-24
 Fixture: ROBOTER.mid (+ reference audio for AUDIO ALIGNED comparison)
-Status: STATIC_CODE_AUDIT; COMPACT output not yet browser-runtime-verified in this audit.
+Status: **RUNTIME_VERIFIED + HUMAN_AUDIBLE_VERIFIED for strudel_compact.js**
+
+The user ran the generated `strudel_compact.js` in the current browser Strudel session and reported that it works and sounds very close to the reference WAV.
+
+## Confirmed correctness on this fixture
+
+- MIDI duration: 51.049103854 s.
+- Compact total duration: 51.049103854 s.
+- Compact timing approximation error reported by `compact_plan.json`: ~7.1e-15 s (floating-point noise; effectively zero).
+- Source MIDI notes: 516.
+- Compact plan source-event coverage: 516 / 516 unique event IDs.
+- Missing source events: 0.
+- Duplicate source-event assignment: 0.
+- Phrase size: 4 bars.
+- Generated patterns: 34.
+- Arrangement references: 36.
+- Reused references beyond first occurrence: 2.
+
+This is strong evidence that the Compact branch preserves the source MIDI event set and timing on this fixture while producing a phrase-oriented arrangement.
+
+## Instrument mapping correction
+
+The currently uploaded Compact export uses proper verified GM-oriented mappings:
+- electric bass program 33 → `gm_electric_bass_finger`
+- distorted/overdriven guitar program 29 → `gm_overdriven_guitar`
+- drum roles → `bd`, `sd`, `hh`, `cp`
+
+An earlier audit note that described Compact as using `sawtooth` / `triangle` was based on an earlier pasted export and is **superseded by this current runtime-tested file**.
+
+`track_map.json` still leaves the user-facing `mapping` field null, so a later UI/version should expose the resolved mapping explicitly instead of only embedding it in the generated code / compact plan.
 
 ## What works
 
@@ -14,60 +43,73 @@ Status: STATIC_CODE_AUDIT; COMPACT output not yet browser-runtime-verified in th
   - `drum(velocity, legato)`
 - Drums are split into clap / closed hat / kick / snare roles.
 - Arrangement is expressed as references to phrase constants, making manual rearrangement possible.
-- Exact duplicate phrase reuse is already visible for some roles (for example silent clap sections).
+- Current output runs successfully in Strudel and is judged by the user to be very close to the source WAV.
 
 ## Size / compactness
 
 For this fixture:
-- AUDIO ALIGNED text: ~29,957 characters / 41 lines
-- COMPACT text: ~24,046 characters / 633 lines
-- Character reduction: only about 19.7%
+- EXACT: ~30,097 characters
+- COMPACT: ~24,154 characters
+- character reduction: ~19.7%
 
 So RC1 is substantially more readable structurally, but only modestly smaller as text.
 
-## Main issues to address
+## Main issues to address for RC2
 
 ### 1. Phrase mining is too strict
 
-Near-repeated drum/bass phrases remain separate because small microtiming/gate differences prevent exact reuse.
+Only one actual phrase identity is reused: `clap_2_1` appears three times, yielding two reused references. Near-repeated drum/bass phrases remain separate because microtiming/gate differences prevent equivalence.
 
 Next step:
 - build tolerance-aware phrase fingerprints;
-- distinguish note identity / rhythmic skeleton / velocity / gate / microtiming;
-- allow phrase reuse with a compact correction layer.
+- separate note identity / rhythmic skeleton / velocity / gate / microtiming;
+- allow phrase reuse with a compact correction layer;
+- preserve canonical timing exactly outside the compressed presentation.
 
-### 2. Instrument mapping is still generic
+### 2. Expose resolved instrument mapping
 
-- Electric bass track is rendered with `.s('sawtooth')`.
-- Distorted-electric-guitar track is rendered with `.s('triangle')`.
+The generated code and compact plan know the GM sounds, but `track_map.json` has `mapping: null`.
 
-This preserves notes but not the MIDI instrument identity. Native/GM mode should use a verified MIDI-program→Strudel-sound mapping table, with safe fallback only when no verified mapping exists.
+RC2 should expose:
+- MIDI program
+- detected role
+- resolved Strudel sound
+- fallback reason, if any
+- manual override
 
-### 3. Drum note-off / gate semantics need special handling
+without altering timing.
 
-MIDI drum note lengths are often implementation artifacts rather than musical durations. RC1 currently exports very small legato values for drum hits. In COMPACT musical mode, one-shot drum semantics should be preferred or at least configurable, while raw note-off timing stays preserved in canonical data / EXACT mode.
+### 3. Drum note-off / gate semantics
 
-### 4. Long cross-boundary gates are technically preserved but hard to edit
+MIDI drum note lengths can be implementation artifacts rather than musically meaningful durations. Compact currently preserves very short gate values.
 
-Some melodic notes have very large legato values because gates cross phrase boundaries. This is correct to preserve, but Compact could expose those as explicit ties/holds or separate continuation metadata to make editing easier.
+Recommended RC2 option:
+- Preserve MIDI gate
+- One-shot musical mode
+- Minimum gate
 
-## Timing comparison checkpoint
+Canonical/Exact data must always retain the original note-off timing.
 
-COMPACT arrangement totals approximately 51.0491 s.
-AUDIO ALIGNED export totals approximately 53.9414 s.
+### 4. Long cross-boundary gates
 
-This difference is not automatically a bug because COMPACT is source-MIDI timing while AUDIO ALIGNED may include audio-reference offset/corrections. Compare against EXACT:
-- if EXACT is also ~51.0491 s, source-timing preservation is behaving consistently;
-- if EXACT differs, investigate Compact segmentation / time normalization.
+Some notes legitimately cross phrase boundaries and therefore create large legato ratios. Compact preserves them, which is correct, but editing would improve if RC2 could represent these as explicit ties/holds or continuation metadata.
 
-## RC1 verdict
+## Audio alignment observation
 
-Compact RC1 proves the architecture:
-source events → role split → phrase blocks → editable arrangement.
+Report measurements:
+- MIDI duration: 51.049 s
+- reference audio duration: 49.534 s
+- global alignment offset: +2.8380 s
+- audio tempo estimate: 97.509 BPM
+- MIDI tempo: 97.636 BPM
+- drift: -20.4 ppm
 
-But it is not yet “human compact” enough. The next important branch should focus on:
-1. tolerance-aware phrase deduplication;
-2. verified instrument mapping;
-3. one-shot drum gate policy;
-4. stronger readability reduction without quantizing source timing.
+The tempo estimates are close, but the positive ~2.838 s offset together with a shorter audio duration means AUDIO ALIGNED should be auditioned separately before treating that alignment as validated. Compact/Exact source timing is independently confirmed by the current runtime test.
 
+## RC1 conclusion
+
+Compact RC1 has crossed an important threshold:
+
+**MIDI source → lossless event coverage → timing-preserving phrase representation → runnable Strudel output → close perceptual match to the reference WAV.**
+
+The next branch should improve compression/readability rather than rewrite the timing core.
