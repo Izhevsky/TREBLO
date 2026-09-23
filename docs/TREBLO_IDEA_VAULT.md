@@ -144,3 +144,90 @@ For new TREBLO generations:
 5. keep building a broader internal vocabulary so first-pass generations become stronger over time.
 
 This vault is therefore a **musical coding reference library / listening-and-looking memory**, not a collection of snippets to imitate one-to-one.
+
+
+
+## Capture rule — what was interesting
+
+Whenever a new reference is added to this vault, also record a short human-readable reflection:
+
+- **What was discovered**
+- **What especially caught attention**
+- **Why it matters for future TREBLO tracks**
+- **What should be tested or reused first**
+
+This reflection is not a rating and not a claim that the reference is objectively better. It is a practical note about which techniques expand our musical/code vocabulary the most.
+
+
+
+---
+
+## 2026-09-23 — “Scales (again) — Riffin in D Major” / r/strudel screenshot
+Status: **REFERENCE / SCREENSHOT-DERIVED / NOT YET RUNTIME-VERIFIED**
+
+Visible account in screenshot: `u/MalsAngryGhost`.
+
+### Clearly visible sound / code vocabulary
+
+- `samples('github:yaxu/clean-breaks')`
+- `supersaw`
+- `pink`
+- `white`
+- `bd` with bank `mc303`
+- `folkharp`
+- Perlin-controlled filter and delay movement
+- `irand(...)` constrained by a major scale
+- `.shuffle(...)`, `.fast(...)`, `.seg(...)`, `.ply(...)`
+- pattern masking
+- occasional self-removal through `.sometimesBy(..., x => x.hush())`
+- small motif array + `pick(...)`
+- `jux(iter(4))`
+- noise used rhythmically rather than as static background
+
+### What was discovered
+
+The strongest structural idea is **hierarchical variation**: the pitch vocabulary can stay simple while selection, masking, stereo motion, rhythmic density, filtering and delay each evolve at different speeds.
+
+The screenshot also shows a useful distinction between:
+- generating notes,
+- selecting motifs,
+- deciding when a layer is present,
+- and independently moving its timbre/spatial behavior.
+
+That separation is valuable because it creates evolution without requiring more simultaneous layers.
+
+### What especially caught attention
+
+1. **Perlin as a slow modulation source**  
+   Not for melody itself, but for filter/delay movement. This is a much better fit for TREBLO than randomizing everything because the musical phrase remains recognizable while the sound keeps breathing.
+
+2. **A motif bank plus `pick(...)`**  
+   Pre-compose several strong mini-phrases, then let the code choose among them. This is a very promising middle ground between fully hand-written melody and uncontrolled random generation.
+
+3. **Noise as an actual rhythmic voice**  
+   Pink/white noise is enveloped, filtered, masked and panned like percussion. This is more musically useful than a permanent vinyl-noise bed.
+
+4. **Silence as variation**  
+   `.sometimesBy(..., x => x.hush())` and masks remove events instead of adding more. This directly supports our current goal of richer arrangements without mix overload.
+
+5. **Different timescales inside one voice**  
+   Fast notes with very slow filter/delay movement. This can make an 8- or 16-bar loop feel much longer and more alive.
+
+### Why it matters for future TREBLO tracks
+
+For our Deep / Lo-Fi / Stoner House direction, the best adaptation is:
+- keep kick + bass comparatively stable,
+- build 3–5 strong upper-register motifs,
+- select/reorder them algorithmically,
+- create arrangement through mask/hush rather than extra tracks,
+- use slow Perlin movement on filter/delay/room,
+- treat noise as occasional percussion,
+- reserve wide stereo/jux behavior for upper layers only.
+
+### What to test first
+
+1. Perlin-controlled LPF/delay on an existing TREBLO hook.
+2. A 4-motif `pick(...)` bank in A minor.
+3. `.sometimesBy(..., x => x.hush())` on guitar/EP layers.
+4. Rhythmic pink/white-noise percussion.
+5. `jux(iter(4))` only on a high-passed melodic layer.
