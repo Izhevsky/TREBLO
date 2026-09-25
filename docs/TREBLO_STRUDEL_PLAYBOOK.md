@@ -30,6 +30,137 @@ Third-party/built-in Strudel sounds may be referenced here, but their raw audio 
 | `lh_loop_keys_house` | sampler keys | only if harmony matches |
 | `lh_loop_synth_house` | atmospheric phrase | only if harmony matches |
 
+## GOLD Lo-Fi palette — AMBER HOURS (user-approved, 2026-09-25)
+
+This palette is preserved because the user explicitly rated the kick, bass, snare/clap, hats and synth choices as an ideal Lo-Fi reference. Treat it as a **first-choice audition palette**, not as a mandatory template. Revalidate external dependencies when reusing it in a new Strudel session.
+
+### Kick identity — GOLD
+External sources:
+- `kd:12` from `github:2lofi/Samps4Strudel` = main kick body / attack
+- `kik:9` from `github:vasilymilovidov/samples` = low sub-tail
+
+Reference construction:
+```js
+stack(
+  s('kd').n(12).gain(1),
+  s('kik').n(9).clip(2.4).release(0.05).lpf(150).gain(0.55),
+)
+.struct("t ~ ~ ~ t ~ ~ ~ t ~ ~ ~ t ~ ~ ~")
+```
+
+Production rule:
+- keep the kick itself dry / direct;
+- no master-style shape/compressor on the kick identity;
+- main pulse stays straight on the grid;
+- use the `kik:9` layer mainly as sub reinforcement;
+- protect the sub-300 Hz region for kick + bass.
+
+### Snare / clap stack — GOLD
+- `RolandTR707_cp:0` = main clap identity
+- `LinnDrum_cp:0` = quieter digital clap layer
+- `RolandTR707_sd:1` = quiet snare body
+
+Reference idea:
+```js
+stack(
+  s('RolandTR707_cp').n(0).speed(0.97).gain(0.85),
+  s('LinnDrum_cp').n(0).clip(6).gain(0.45).nudge(0.01),
+  s('RolandTR707_sd').n(1).clip(3).lpf(2400).gain(0.22).speed(0.95),
+)
+```
+
+Keep the 707 clap dominant; Linn and snare are reinforcement, not competing mains.
+
+### Closed-hat family — GOLD
+- `LinnDrum_hh:1` = principal swung hat character
+- `RolandTR707_hh:0` = denser secondary 16th layer
+- `RolandTR808_hh:0` = low-level ghost-hat articulation
+- `RolandTR909_oh:1` = open-hat lift
+
+Reference behaviour:
+- swing hats, not kick;
+- alternate gains instead of using one static velocity;
+- secondary 16ths may use controlled `degradeBy`;
+- ghost hat stays quiet;
+- open hat is sparse and supportive.
+
+### Bass — GOLD synthesis recipe
+This is **not a sample bank**. The successful bass identity is a layered synth recipe:
+
+```js
+stack(
+  p.s('sawtooth').gain(0.5),
+  p.s('sine').add(note(-12)).gain(0.45).lpf(110),
+)
+.attack(0.004)
+.decay(0.14)
+.sustain(0.52)
+.release(0.1)
+.lpf(cut)
+.lpq(2.6)
+.lpenv(1.2)
+.lpattack(0.003)
+.lpdecay(0.14)
+.lpsustain(0.22)
+.hpf(34)
+```
+
+Principle:
+- saw = audible bass identity;
+- sine one octave down = restrained foundation;
+- short envelope;
+- filtered, mono-biased low end;
+- musical syncopation matters as much as timbre.
+
+### Keys / synth palette — GOLD reference
+- `gm_epiano2` = dusty Rhodes/e-piano stab identity
+- `gm_pad_warm` = main pad body
+- `gm_pad_halo` = upper airy pad layer
+- native `supersaw` = quiet third pad colour
+- `gm_string_ensemble_1` = restrained strings
+- lead = two slightly detuned native saw layers + quiet square one octave down
+- arp = triangle body + quiet saw edge
+
+#### Lead recipe
+```js
+stack(
+  p.s('sawtooth').add(note(-0.08)).gain(0.4),
+  p.s('sawtooth').add(note(0.08)).gain(0.4),
+  p.s('square').add(note(-12)).gain(0.16),
+)
+```
+
+#### Pad recipe
+```js
+stack(
+  note(ch).s('gm_pad_warm').gain(0.5),
+  note(ch).add(note(12)).s('gm_pad_halo').gain(0.2),
+  note(ch).s('supersaw').gain(0.2),
+)
+```
+
+### Supporting percussion palette
+Useful secondary colours from the same reference:
+- `RolandTR727_sh:1` — shaker
+- `RolandTR707_rim:0` — rim
+- `LinnDrum_perc:3` — muted conga/percussion
+- `OberheimDMX_mt:0` / `OberheimDMX_lt:0` — tom fills
+- `RolandTR909_cr:2` — crash / reverse-transition source
+
+### TREBLO rule
+For Lo-Fi / deep-house generation or reconstruction, audition this palette early when the source/style allows it. Preserve the role logic:
+- straight kick;
+- swung hats;
+- layered but restrained clap/snare;
+- saw + sine-sub bass;
+- dusty GM e-piano;
+- warm/halo pad stack;
+- restrained saturation and space.
+
+Do not blindly paste the whole palette into every song. The semantic/code planner should choose only the roles required by the source or Producer brief.
+
+---
+
 ## Built-in bank roles
 
 These are references to Strudel built-ins; they are not TREBLO sample assets.
