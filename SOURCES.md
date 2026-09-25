@@ -157,6 +157,24 @@ Files:
 
 `tidalcycles/sounds-Dirty` was reviewed but not imported: its relevant TR-909 metadata declares `CC-BY-SA-NC`, which conflicts with this repository's commercial-use-safe source policy.
 
+## LO Pack v1 — owner-supplied, published 2026-09-25
+
+Files:
+- `loops/lo_pack_v1/lo_pack_v1_01.ogg`
+- `loops/lo_pack_v1/lo_pack_v1_02.ogg`
+- `loops/lo_pack_v1/lo_pack_v1_03.ogg`
+- `loops/lo_pack_v1/lo_pack_v1_04.ogg`
+- `loops/lo_pack_v1/lo_pack_v1_05.ogg`
+- `loops/lo_pack_v1/lo_pack_v1_06.ogg`
+
+- Source / creator: repository owner / user-provided original files
+- Acquired: 2026-09-25
+- Permission basis: repository owner explicitly confirmed that the files are theirs and authorized public publication / redistribution in TREBLO
+- Public repository processing: converted from the supplied MP3 sources to compact OGG derivatives for repository/runtime size; no normalization, EQ, denoising, time-stretching, pitch correction or creative processing
+- Preservation: original MP3 files and 24-bit / 44.1 kHz WAV decode derivatives are retained in the private TREBLO Library
+- Notes: role/instrument labels are provisional analysis tags rather than definitive instrument identification
+- Downstream license: no separate blanket permissive license is asserted here beyond the owner's publication/redistribution authorization
+
 ## Template — Treblo generation
 
 ### `filename.wav`

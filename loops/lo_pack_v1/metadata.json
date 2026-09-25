@@ -1,0 +1,67 @@
+{
+  "pack_id": "lo_pack_v1",
+  "public_bank": "lh_loop_user_lo_v1",
+  "source": "repository_owner_user_upload",
+  "date_added": "2026-09-25",
+  "publication_status": "public_redistribution_confirmed_by_owner",
+  "public_format": "ogg",
+  "processing": "MP3 source -> OGG derivative; no normalization or creative processing",
+  "preservation": "Original MP3 + PCM24 WAV derivatives retained in private TREBLO Library",
+  "samples": [
+    {
+      "id": "lo_pack_v1_01",
+      "duration_seconds": 12,
+      "tags": [
+        "tonal",
+        "harmonic",
+        "mid_focused"
+      ]
+    },
+    {
+      "id": "lo_pack_v1_02",
+      "duration_seconds": 12.8,
+      "tags": [
+        "tonal",
+        "low_frequency_dominant",
+        "candidate_bass_or_low_synth"
+      ]
+    },
+    {
+      "id": "lo_pack_v1_03",
+      "duration_seconds": 12.85,
+      "tags": [
+        "tonal",
+        "harmonic",
+        "mid_focused"
+      ]
+    },
+    {
+      "id": "lo_pack_v1_04",
+      "duration_seconds": 18.57,
+      "tags": [
+        "texture",
+        "ambience",
+        "low_frequency_dominant",
+        "provisional_classification"
+      ]
+    },
+    {
+      "id": "lo_pack_v1_05",
+      "duration_seconds": 16.07,
+      "tags": [
+        "tonal",
+        "harmonic",
+        "mid_focused"
+      ]
+    },
+    {
+      "id": "lo_pack_v1_06",
+      "duration_seconds": 13.71,
+      "tags": [
+        "tonal",
+        "brighter",
+        "melodic_candidate"
+      ]
+    }
+  ]
+}

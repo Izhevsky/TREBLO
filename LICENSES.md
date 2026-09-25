@@ -18,6 +18,7 @@ This repository may contain samples from different permitted sources. The licens
 | Uzu selected drums | `tidalcycles/uzu-drumkit` | Unlicense / public-domain dedication | Permitted |
 | FreePats FM Synthesized Piano #1 | `freepats/fm-piano1` | CC0 1.0 Universal | Permitted |
 | Karoryfer Black & Green Guitars — selected Green staccato samples | `sfzinstruments/karoryfer.black-and-green-guitars` | CC0 1.0 Universal | Permitted |
+| LO Pack v1 | Repository owner / user-provided originals | Owner explicitly authorized public publication / redistribution in TREBLO on 2026-09-25; no separate blanket downstream license asserted | Permitted for repository publication |
 
 Exact imported filenames, source commits and processing are recorded in `SOURCES.md` and `imports/house_essentials_v1/`.
 

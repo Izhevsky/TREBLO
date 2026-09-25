@@ -97,5 +97,13 @@
   "lh_loop_synth_house": [
     "loops/house_sampler_v1/house_synth_loop_a.wav",
     "loops/house_sampler_v1/house_synth_loop_b.wav"
+  ],
+  "lh_loop_user_lo_v1": [
+    "loops/lo_pack_v1/lo_pack_v1_01.ogg",
+    "loops/lo_pack_v1/lo_pack_v1_02.ogg",
+    "loops/lo_pack_v1/lo_pack_v1_03.ogg",
+    "loops/lo_pack_v1/lo_pack_v1_04.ogg",
+    "loops/lo_pack_v1/lo_pack_v1_05.ogg",
+    "loops/lo_pack_v1/lo_pack_v1_06.ogg"
   ]
 }

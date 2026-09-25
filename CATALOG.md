@@ -62,8 +62,11 @@ Examples: `lh_kick_dusty`, `lh_clap_dusty`, `lh_rhodes_cm7`, `lh_tape`, `lh_viny
 | `lh_loop_drum_house` | 2 | 4 bars @ 122 BPM | Original glued house drum loops with swing, ghost percussion and analog-style bus saturation | Ready |
 | `lh_loop_keys_house` | 2 | 4 bars @ 122 BPM | Original FM/e-piano chord loops for sampler-style layering/chopping | Ready |
 | `lh_loop_synth_house` | 2 | 4 bars @ 122 BPM | Original melodic/atmospheric synth phrases | Ready |
+| `lh_loop_user_lo_v1` | 6 | ~12–19 s each | User-owned lo-fi tonal, low-end, ambience and melodic source loops; individual roles are intentionally provisional | Ready; public redistribution authorized by owner |
 
 These six WAVs live in `loops/house_sampler_v1/`. They were generated deterministically from original procedural synthesis only; no third-party producer-pack audio or copyrighted recordings are embedded in them.
+
+`lh_loop_user_lo_v1` lives in `loops/lo_pack_v1/`. It contains six user-owned source loops published as compact OGG derivatives for Strudel/runtime use; original MP3 files and 24-bit WAV decode derivatives remain in the private TREBLO Library.
 
 
 ## Production favorites / Gold picks
