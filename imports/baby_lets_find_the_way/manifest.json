@@ -1,19 +1,30 @@
 {
   "project": "baby_lets_find_the_way",
-  "status": "awaiting_audio_uploads",
-  "tempo_bpm": 139.67,
+  "status": "ready_for_strudel_v1",
+  "tempo_bpm": 139.6748,
   "source_length_seconds": 261.04,
+  "first_stable_beat_seconds": 0.418,
   "files": {
     "bass": "bass.mp3",
     "vocal": "vocal.mp3",
-    "drums": "drums.mp3",
-    "other": "other.mp3",
-    "oldies_8bars": "oldies_8bars.wav",
-    "oldies_16bars": "oldies_16bars.wav"
+    "drums_reference": "drum.mp3",
+    "synth_reference": "synth.mp3"
+  },
+  "strudel_aliases": {
+    "bass": "blftw_bass",
+    "vocal": "blftw_vocal",
+    "drums_reference": "blftw_drum_ref",
+    "synth_reference": "blftw_synth_ref"
   },
   "strudel": {
     "locked": ["bass", "vocal"],
-    "rebuild": ["drums", "other"],
-    "optional_source_samples": ["oldies_8bars", "oldies_16bars"]
-  }
+    "rebuild": ["drums", "synths", "keys", "pads", "percussion", "atmosphere"],
+    "references_not_in_final_stack": ["drums_reference", "synth_reference"],
+    "song_cycles": 152,
+    "grid_offset_cycles": 0.243
+  },
+  "optional_future_files": [
+    "oldies_8bars.wav",
+    "oldies_16bars.wav"
+  ]
 }
