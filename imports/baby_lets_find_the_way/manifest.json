@@ -1,0 +1,19 @@
+{
+  "project": "baby_lets_find_the_way",
+  "status": "awaiting_audio_uploads",
+  "tempo_bpm": 139.67,
+  "source_length_seconds": 261.04,
+  "files": {
+    "bass": "bass.mp3",
+    "vocal": "vocal.mp3",
+    "drums": "drums.mp3",
+    "other": "other.mp3",
+    "oldies_8bars": "oldies_8bars.wav",
+    "oldies_16bars": "oldies_16bars.wav"
+  },
+  "strudel": {
+    "locked": ["bass", "vocal"],
+    "rebuild": ["drums", "other"],
+    "optional_source_samples": ["oldies_8bars", "oldies_16bars"]
+  }
+}
