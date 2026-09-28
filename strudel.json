@@ -105,5 +105,9 @@
     "loops/lo_pack_v1/lo_pack_v1_04.ogg",
     "loops/lo_pack_v1/lo_pack_v1_05.ogg",
     "loops/lo_pack_v1/lo_pack_v1_06.ogg"
-  ]
+  ],
+  "blftw_bass": "imports/baby_lets_find_the_way/bass.mp3",
+  "blftw_vocal": "imports/baby_lets_find_the_way/vocal.mp3",
+  "blftw_drum_ref": "imports/baby_lets_find_the_way/drum.mp3",
+  "blftw_synth_ref": "imports/baby_lets_find_the_way/synth.mp3"
 }
