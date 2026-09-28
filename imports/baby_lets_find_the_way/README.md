@@ -1,35 +1,53 @@
 # Baby Let's Find the Way — Strudel source pack
 
-Working folder for the Strudel reconstruction based on preserved long-form stems.
+Working folder for a Strudel reconstruction that preserves the original long-form **bass** and **vocal** stems while rebuilding the rest of the production.
 
-## Expected files
+## Uploaded files
 
-Upload these exact filenames into this folder:
+- `bass.mp3` — full bass stem
+- `vocal.mp3` — full vocal stem
+- `drum.mp3` — original drums, reference/A-B only
+- `synth.mp3` — original synths/other, reference/A-B only
 
-- `bass.mp3` — full bass stem, 320 kbps
-- `vocal.mp3` — full vocal stem, 320 kbps
-- `drums.mp3` — full drums stem, 320 kbps
-- `other.mp3` — full synths / other stem, 320 kbps
-- `oldies_8bars.wav` — 8-bar source sample
-- `oldies_16bars.wav` — 16-bar source sample
+All four files are registered in the root `strudel.json`.
 
-Source project facts:
-- length: ~4:21.04
-- sample rate of source stems: 44.1 kHz stereo
-- detected tempo: ~139.67 BPM
+## Strudel aliases
 
-## Strudel plan
+- `blftw_bass`
+- `blftw_vocal`
+- `blftw_drum_ref`
+- `blftw_synth_ref`
 
-Locked musical DNA:
+## Source timing
+
+- source length: ~4:21.04
+- analysed tempo: ~139.6748 BPM
+- first stable beat: ~0.418 s from file start
+- Strudel: one cycle = one 4/4 bar
+- full song: ~152 cycles
+- generated-grid offset: ~0.243 cycle
+
+## Production plan
+
+Locked:
 - full bass stem
 - full vocal stem
 
-Rebuilt / optional:
-- drums
-- percussion
+Generated in Strudel:
+- drums and percussion
 - keys / pads
-- atmospheric layers
-- oldies chops and textures
-- arrangement accents
+- harmonic haze
+- transition textures
+- arrangement energy
 
-After the audio files are uploaded, update the repository-level `strudel.json` with stable sample aliases and validate the raw GitHub URLs in Strudel.
+The source drum and synth stems stay available for reference and A/B comparison but are not used in the main v1 final stack.
+
+## Example
+
+See:
+
+`examples/baby_lets_find_the_way_rebuild_v1.js`
+
+Optional later additions:
+- `oldies_8bars.wav`
+- `oldies_16bars.wav`
