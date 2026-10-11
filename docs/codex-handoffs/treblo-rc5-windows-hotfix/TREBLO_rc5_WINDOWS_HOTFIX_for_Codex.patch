@@ -1,0 +1,939 @@
+diff --git a/HOTFIX_MANIFEST_SHA256.json b/HOTFIX_MANIFEST_SHA256.json
+new file mode 100644
+index 0000000..35b8a7b
+--- /dev/null
++++ b/HOTFIX_MANIFEST_SHA256.json
+@@ -0,0 +1,51 @@
++{
++  "base_package": "TREBLO_v1.2.1-rc.5_WINDOWS_CONVERT_FIX.zip",
++  "build_id": "65a722e08877de0b",
++  "changed_files": [
++    {
++      "file": "KEY_SIGNATURE_HOTFIX_TEST_REPORT.md",
++      "status": "added",
++      "sha256": "92714bbbe14d7ad8b94ea87b61d52bc6e9b7f23def25ed9385c523f7409dab3e"
++    },
++    {
++      "file": "MANIFEST_SHA256.json",
++      "status": "modified",
++      "sha256": "e6eb3101f3baf4c9c3dae7aa3f7a361c0b567e083f3d5117ed9f5e6a30a2dcfa"
++    },
++    {
++      "file": "VERSION.json",
++      "status": "modified",
++      "sha256": "f071ee075cf38ab748a8e1601e98520f0be4a49fe474f692b3db934ccd658603"
++    },
++    {
++      "file": "WINDOWS_KEY_SIGNATURE_FIX_NOTES.md",
++      "status": "added",
++      "sha256": "4272b9b46ae7e1372d14705a7274a197afd795b93cc7173c69acbb024e3a163f"
++    },
++    {
++      "file": "app/cli.py",
++      "status": "modified",
++      "sha256": "ffbbc4f5dcac748283203f0713262e5cca5b429f4c37690a7385d1ff24514ff7"
++    },
++    {
++      "file": "app/midi_input_recovery.py",
++      "status": "added",
++      "sha256": "49f31a52ab0be8f8b2c0964bd780b335996e5a189234f09bdb1241ec1b50d675"
++    },
++    {
++      "file": "tests/test_bad_key_signature_hotfix.py",
++      "status": "added",
++      "sha256": "beea5f26b1be4574861c4863820f9db05a4a6d8ade152472f4932e4091f366b9"
++    },
++    {
++      "file": "ui/app.js",
++      "status": "modified",
++      "sha256": "11a9fcf44be061ffae6caea7bbbd0eef427516821d22e60f75854eb850fe7c66"
++    }
++  ],
++  "frozen_modules_sha256": "UNCHANGED AGAINST PREDECESSOR; historical mismatch in app/exporter.py inherited",
++  "targeted_tests": "77 PASS",
++  "full_suite": "NOT COMPLETED",
++  "native_windows": "NOT RUN",
++  "manifest_self_hash": "excluded"
++}
+diff --git a/HOTFIX_TEST_REPORT.md b/HOTFIX_TEST_REPORT.md
+new file mode 100644
+index 0000000..b715926
+--- /dev/null
++++ b/HOTFIX_TEST_REPORT.md
+@@ -0,0 +1,22 @@
++# TREBLO v1.2.1-rc.5 — Windows conversion hotfix test report
++
++Build: `2896b80a50d67aaa`
++
++## PASS
++
++- `pytest -q tests/test_server.py tests/test_build_provenance.py tests/test_end_to_end.py`
++  - 17 passed
++- `pytest -q tests/test_runtime_knowledge_rc5.py tests/test_self_audit_rc3.py tests/test_final_audit.py`
++  - 46 passed
++
++Total targeted checks reported here: **63 PASS**.
++
++New regression coverage includes:
++
++- Compact Safe with an attached WAV does not decode or align audio unless an audio-aligned mode is selected.
++- Unexpected conversion exceptions return JSON HTTP 500 details instead of plain `Internal Server Error`.
++- Existing build-provenance / end-to-end / runtime / audit checks above remain passing.
++
++## NOT COMPLETED
++
++A monolithic full `pytest -q` run was attempted in the sandbox but exceeded the execution time limit before completion. No full-suite PASS is claimed for this hotfix. Native Windows + the user's real RHODES MIDI/WAV remains the decisive acceptance test.
+diff --git a/KEY_SIGNATURE_HOTFIX_TEST_REPORT.md b/KEY_SIGNATURE_HOTFIX_TEST_REPORT.md
+new file mode 100644
+index 0000000..6663ef7
+--- /dev/null
++++ b/KEY_SIGNATURE_HOTFIX_TEST_REPORT.md
+@@ -0,0 +1,10 @@
++# Key Signature Hotfix — Test Report
++
++- Build `65a722e08877de0b`
++- `pytest -q tests/test_bad_key_signature_hotfix.py tests/test_midi_reader.py tests/test_server.py tests/test_end_to_end.py tests/test_build_provenance.py tests/test_compact.py tests/test_final_audit.py tests/test_runtime_knowledge_rc5.py`
++- **77 PASS**, after build restamp.
++- Full suite `pytest -q --disable-warnings --maxfail=1` was started but exceeded execution time; **NOT COMPLETED**.
++- The user's real RHODES MIDI is unavailable in this environment; native Windows acceptance is **NOT RUN**.
++- All 12 freeze-listed source modules are unchanged vs prior ZIP.
++- 11/12 match the historical freeze manifest; `app/exporter.py` mismatch
++  was already present in the original rc.5 ZIP; no changes made here.
+diff --git a/MANIFEST_SHA256.json b/MANIFEST_SHA256.json
+index 783c37d..c1f8154 100644
+--- a/MANIFEST_SHA256.json
++++ b/MANIFEST_SHA256.json
+@@ -1,13 +1,16 @@
+ {
+-  "CHANGED_FILES.md": "dbbec4acc3f625c7f7999b8b585c61d43ab0e1d2ff1912511128141a22eee949",
++  "CHANGED_FILES.md": "9dba01342f5282812169f3116c4ee22b0dbd21acdfac2c98c36277863fa9271f",
+   "CHANGED_FILES_RC2.md": "1d5545f68aec2ff1d9eaa44d238560941140eb26df3f645824a478691a2584aa",
+   "CHANGED_FILES_V12.md": "99413cbd2fe76b7d061161153d6c3c44f1768b09dd12529881bc4aa1f47dbe84",
+-  "CHECKPOINT.md": "3f683fc6d54e1913f9cda0d0a139a1c666c3ed521f75ded14d3472d24f382311",
++  "CHECKPOINT.md": "a7f9f6b2682a197b242fac2876852eb0af8a99eb326cbf486c47692999861be4",
+   "CHECKPOINT_RC2.md": "345c44323d01ffcc60746a392ed07105025b73556a7c271552f59553b249f1a4",
+   "CHECKPOINT_RC3.md": "eddbe4a72eca1f747fd9a9af7be67d6f1ec2f822ce09a2c263628a952aa18532",
++  "CHECKPOINT_RC5.md": "f7e4d908346686f2a519bad4591490eed30374bceb592fdfc592bb02ec6ee566",
+   "FINAL_AUDIT.md": "9a855b8059bfd7f489836b9436d5bb6c62ce1f6c3815edb8eee8b573ca309c4f",
+-  "PERFORMANCE_REPORT.md": "3f683fc6d54e1913f9cda0d0a139a1c666c3ed521f75ded14d3472d24f382311",
+-  "README.md": "7d4c036770ee591f131595839d6c8f5c0f79bc1cbeca075cd149cdea40cada37",
++  "HOTFIX_TEST_REPORT.md": "5eb9e67801b604776953e9fd5d339f9db680b474133552c95a4085411b1cf3ca",
++  "KEY_SIGNATURE_HOTFIX_TEST_REPORT.md": "92714bbbe14d7ad8b94ea87b61d52bc6e9b7f23def25ed9385c523f7409dab3e",
++  "PERFORMANCE_REPORT.md": "a7f9f6b2682a197b242fac2876852eb0af8a99eb326cbf486c47692999861be4",
++  "README.md": "76aea5afbe13b8b2ea0ec2a6f8ee534828b55a1d03a313d3e1e2aef1fc464591",
+   "RELEASE_NOTES_COMPACT.md": "eb1315f217a5fc45064957311dda62b009e528e6bb53d0be4b1fceb0e9be1916",
+   "RELEASE_NOTES_RC2.md": "9585cbef44d06d31e3585af05eb3b6422f73b44838222c5b0df8ce34070c7a83",
+   "RELEASE_NOTES_V12.md": "a1dc204f4010403293a4d68f6b9ef7464586e8ebf49c2bb6048d3b0fd4530120",
+@@ -15,39 +18,53 @@
+   "REVIEW_FIXES.md": "a6a63575ea9352c3639b7fb29e1ab5da69e263928a52ab5d080850d1a245bef0",
+   "SPEC_TRACKING_2026-09-24.md": "546c6c292145423a23b66ad07d60f03b250fd4c0a4017f3a4820706e14d7d9bf",
+   "TECHNIQUE_REGISTRY.json": "f06962da85db13dbaa5c5fd52cd24308d01c1133fc41c39c37316bdf2e9c4518",
+-  "TEST_REPORT.md": "3f683fc6d54e1913f9cda0d0a139a1c666c3ed521f75ded14d3472d24f382311",
+-  "VERSION.json": "c55b874208aed9f0a82ed63a2d4f989fc744bc186cc3a2a4a173a9a2e7225df9",
++  "TEST_REPORT.md": "a7f9f6b2682a197b242fac2876852eb0af8a99eb326cbf486c47692999861be4",
++  "VERSION.json": "f071ee075cf38ab748a8e1601e98520f0be4a49fe474f692b3db934ccd658603",
++  "WINDOWS_BUILD_FIX_NOTES.md": "47a9fdde5741a718c04b68be7bdc7139f7eefec16a606cdc0ddd9f2286ece248",
++  "WINDOWS_CONVERT_FIX_NOTES.md": "2ef4d1d24092e4e2a5b08e79cd73cbf9ef7dff59820c3d70c5289391d7a23986",
++  "WINDOWS_KEY_SIGNATURE_FIX_NOTES.md": "4272b9b46ae7e1372d14705a7274a197afd795b93cc7173c69acbb024e3a163f",
+   "app/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+-  "app/aligned_audit.py": "48678884dafa09ae82516c4c30e0bf82fb8bd46a46a4a09834bc387c062b9160",
+-  "app/aligned_ir_emitter.py": "61902e40ee519293839c6107e1f7c02bd6fe871bca22f2d264bf703c0fbeae79",
+-  "app/aligned_musical.py": "7da9007f730043243a6fd852892cc5ca0e504262f7726184c266f5a0bddb3827",
++  "app/aligned_audit.py": "091528f0b5c1dfb0277f1b71720ed743937057ccb2e25b9514b3ca158e4b76a4",
++  "app/aligned_ir_emitter.py": "e36fc13f96a91eff7c4fa84846f66c19723d1b9d152d3bdad74f17c55c1d0b3b",
++  "app/aligned_musical.py": "233e47250870d439c839aca905fafccad0369c063ce3a8f24f82c8acb7ce2dd2",
+   "app/arrangement_dag.py": "79576c33dfda3b33f23c0fa7698b318d68aa1adb5c26fab4d62ab3676e55aa2d",
+   "app/audio_align.py": "d1eeacbec58b2a16af5e481331a7c80a36fd03d0a4e046c4a547110bc2345d48",
+-  "app/build_info.py": "d4debb76e1e305bf76f2ba3dda20f640b0c5da46d642a8b52760bd350b253750",
+-  "app/cli.py": "b4336ec640f1499a6d4c9df5bfa6a34b6230161dac9748f9a787aba4d26b2626",
++  "app/build_info.py": "7143199c45ee3c9a5c50a893190686fc61684d09dd524f75ae0bcaaf66fb12ed",
++  "app/candidate_runtime.py": "602a9cbe29c684fc86ec63f9bb6732ad2581ef2494a29ba279b19b7cf42edada",
++  "app/cli.py": "ffbbc4f5dcac748283203f0713262e5cca5b429f4c37690a7385d1ff24514ff7",
+   "app/compact.py": "00169b53886c3ab75b9bd14e6f365c3ad4b739c90edcfdcb738581fabcd70d4f",
+   "app/compact_audit.py": "64322fb4351f0b37575822df61af251ad504a7e4ac7a7f9592e0a88061e34ab9",
+   "app/data/reconstruction_techniques.json": "67ea346bf313198cee27d10e0032e2e64d0ada0fd7ff604f21b48254f957bc05",
+-  "app/data/technique_registry_v121.json": "f06962da85db13dbaa5c5fd52cd24308d01c1133fc41c39c37316bdf2e9c4518",
++  "app/data/runtime_profile_v121.json": "48dddafb4bfaacf8fb12d510405d439d8f81de805dd67da2c43389d586598c2a",
++  "app/data/sample_registry_v121.json": "e133cf2819c83d78250c432ca8f2a212aed11dc10d8c5b64bcce3eaabb67b39e",
++  "app/data/technique_registry_v121.json": "9d0a0f2708c7885e513b91cadbae8264762fe01d99b3eccd097a13b9cb4695dc",
+   "app/data/treblo_strudel.json": "755135d77a5ef7f02941a65080ba12d2ec3f31ee85ebbf8b985120a85a9e0dc5",
+   "app/emit_strudel.py": "9f98416ed69f6e3c937a8ad131dde3b5a39580406cf3e782c832100db53e3803",
+   "app/exporter.py": "721e42f91a94228a331b07d6d3e29990b28eb7fd5c16925eb4aedc05196116f2",
+   "app/gm.py": "416f2b3e4a63d853ff6a85504dabd487769eb82e384b25b0041e0fa9369a9989",
++  "app/input_provenance.py": "e13157f30cc526478e2eae1e54bdf80aa0868a909fedceabc67218dc7349dcd0",
+   "app/instruments.py": "7e8e6a895f4eef9fa410bd18c2a96251799e81979db0f72674850a77b9663544",
+   "app/local_precise.py": "407d99912375a20ac8807a814100eeb384db584a7fc53cc489f84846f26b4a29",
++  "app/midi_input_recovery.py": "49f31a52ab0be8f8b2c0964bd780b335996e5a189234f09bdb1241ec1b50d675",
+   "app/midi_reader.py": "59f06190411809a706f2141348a301c10e1e18e4c35ab92fd59a7c4c88f591d6",
+   "app/midi_writer.py": "7bd8e06992049f3b26624db7ef6be92c950cef052dfde704fb66186ecb218c9a",
+   "app/musical.py": "42dc08a663efd0f9856bfb504d27311223b9b67e6614cd8c679e5962e4617c04",
+   "app/musical_audit.py": "a9714cba338c5668592b08a70b38d482c686c7dc7e64c10eb94c5b9084095b4f",
+   "app/report.py": "f23d65f521784f450190b8280f4afc29e17b695213e78ec58fa7c35448d160cd",
+-  "app/representation_optimizer.py": "c238e72330465511e1dc7a13afe187d742dd028922b8641b765d54c01e5831c5",
++  "app/representation_optimizer.py": "216fa1cd88e3b337d3fafb5a7e45a7793e10ffc2cf496cbcb7b5447ddc259f29",
++  "app/runtime_profile.py": "f853840bb7f3507e722e7374b8abcb74dcf9c8d4984449c470877da4fa2083fe",
++  "app/sample_registry.py": "098a7666bdb2889b50f1e773bc67b583672b3e2ab91dc2af44edd8639fa09d51",
+   "app/semantic.py": "0dc68408204d0ca992ff8f15d8aa0c02ead4fcda66cd837622cda95a1eac35bd",
+   "app/semantic_safety.py": "8fca252ef99be792bd7b7ad354b3541966787184a8a151bd581a11d2c1958608",
+-  "app/server.py": "99f0d2c2d42609dc52720c174a9a211d9825d0643fe700efea19a8d5b791c5f4",
++  "app/server.py": "f94ea3a4a1ba967a780475be5e30a823d62f164f768cc8dad60e0501b9059da9",
+   "app/synth_fixture.py": "e665b35c1a9266d7cab484fb90f23ece62ce5de40e18f03895c5907523e29e89",
++  "app/technique_matcher.py": "a07be2791f161fff35c4223c652df0e50e15978ff97f72ae78dc057b7709745c",
+   "app/tempo.py": "21754f3c2a69be073dfce8d9e8e7009704fffdd9ab5dbddb57c63bb30c628f25",
+   "app/version.py": "ca561ba86a70babc3a69afa8bd191360719d35a605d7582842ebce2e3b224131",
+   "archive/CHECKPOINT_RC2.md": "ead3393907789003db8c44660b33fc5ba56f6ee28a14cdcdc75831d7526920bf",
++  "archive/pre_rc5_CHECKPOINT.md": "3f683fc6d54e1913f9cda0d0a139a1c666c3ed521f75ded14d3472d24f382311",
++  "archive/pre_rc5_PERFORMANCE_REPORT.md": "3f683fc6d54e1913f9cda0d0a139a1c666c3ed521f75ded14d3472d24f382311",
++  "archive/pre_rc5_TEST_REPORT.md": "3f683fc6d54e1913f9cda0d0a139a1c666c3ed521f75ded14d3472d24f382311",
+   "archive/weight_optimizer_scratch.py": "d75b5c9c73e1c1209ed7db26daa32cf1fb12dba05b5dcc2c578bfb943dc6367d",
+   "diagnose.ps1": "ff98ae05b00b7fc50b44102b1333df620bebc89d4b36728d6aa5ca151a7924f0",
+   "evidence/ACCEPTANCE.md": "41b28858f951ed0c9cc0cdf061425075d67cdff0b5d3164caac7fe37044f304b",
+@@ -136,6 +153,12 @@
+   "evidence/v121/rc3_changed_source.json": "ccaf4ba5c82e6f64eeb804d5bdd8a93c9344e292e938482fc7f3edcdc1743e0d",
+   "evidence/v121/rc3_local_node_report.json": "27833bee13a9e119ff6e48b474044831dadfe0b8404047a6db36461e90f8ae95",
+   "evidence/v121/rc3_local_precise_browser_report.json": "1ce24835f59c71c1023d4b64c2f4edf7185807748c3a4beb14715eaf38e6eb93",
++  "evidence/v121/rc5_baseline.txt": "823e7862813f408a61f2be25b260faba6d0577243d07d867e3f955ec0a3f15a2",
++  "evidence/v121/rc5_evidence_run.txt": "fe1057018d6f53ba6a50519ab7a85ffdaf7f4d84e77d067939034bfab2e31c19",
++  "evidence/v121/rc5_focused.txt": "69f30e370c98e856ff8796093afa0c3fa75c4f01a63c0611dbc0a4b5876a525c",
++  "evidence/v121/rc5_performance.json": "9e0aa20b47e4cd1810f5e6c996209c4740d5183bef1f4da5944fe1e339c22773",
++  "evidence/v121/rc5_regression.txt": "e225961b172460dabf6d6f18e9b5886b1a7f6839438e2756c9a33ac51d66d381",
++  "evidence/v121/rc5_requirements_before.txt": "16478236926a7b62b30b38c6e3b44e707fdd70085de548b3e9075798b40e7b47",
+   "evidence/v121/review_49_ast.json": "7fd379a4d91cbd4674acafb2d1cad09757e0deeaa2e42b34accf66b5f7bb3ff4",
+   "evidence/v121/review_49_node_report.json": "ef88007a3fb6b0905e7f9c0672a4c4b21660d1e3a12a32efd2031946e2fedeeb",
+   "evidence/v121/review_baseline_tests.txt": "47f0248d34749b793d5d66d8d28fa7d0d3842e3b1a476af550226523798397b9",
+@@ -288,6 +311,52 @@
+   "examples/aligned_musical/rc3_local_precise/semantic_map.json": "30d225d1b4d12aeb27bf854d10561db2e3e2be7a7a8f5aa5674d0777e6b35af5",
+   "examples/aligned_musical/rc3_local_precise/source.mid": "879099ca5d9f09ef781e3cdb6a66d635c9d2e986334b50bbe413d727905b74fb",
+   "examples/aligned_musical/rc3_local_precise/strudel_audio_aligned_musical.js": "1f5fb2f44f6e232d5de5f27f07f2e0995e42486279802eb3581e2e4205ef4377",
++  "examples/aligned_musical/rc5_49_segments/aligned_arrangement_dag.json": "b57c640e224273d4038f59c7cb88be5ab6e1b5b0175c30e327de4ef89b1a951c",
++  "examples/aligned_musical/rc5_49_segments/aligned_equivalence_report.json": "0549c2d036f6c36841d84e6cbca0750f2bd526a9d6ed1622cb45e7e175b9f96e",
++  "examples/aligned_musical/rc5_49_segments/aligned_musical_plan.json": "aff795950b5a061a437a65a94d3317234962fcea9401cc7cf0110b3fec20aa9a",
++  "examples/aligned_musical/rc5_49_segments/aligned_runtime_report.json": "0549c2d036f6c36841d84e6cbca0750f2bd526a9d6ed1622cb45e7e175b9f96e",
++  "examples/aligned_musical/rc5_49_segments/aligned_strudel_ir.json": "067e186ac9007c208fb9ac9d65d91c07886844834c3461b85d0802a94cf857d5",
++  "examples/aligned_musical/rc5_49_segments/alignment_result.json": "4a0361d1303446dff2246da78f5b58642d78934d445298262ddea15c1f8a2604",
++  "examples/aligned_musical/rc5_49_segments/alignment_transform.json": "6eb36cbe4775b49cad33b43bf5eabe3f57b496be54a3346999b7edddec19d0e9",
++  "examples/aligned_musical/rc5_49_segments/browser_probe.js": "4bd2fc47fc61939d60f6fdb4c7a8c2d64fcf61aa6fd06b702acf25c4fbbef311",
++  "examples/aligned_musical/rc5_49_segments/code_metrics.json": "e3f57bdae5e16e554ffa0225a6a76a8ad2569517002aa2e1de14029fc3e7c56c",
++  "examples/aligned_musical/rc5_49_segments/exact_midi.mid": "3ed65c545dfc502410ef7cd0fcdb18ea584ece4b0c5f2b538507ad1f67edf327",
++  "examples/aligned_musical/rc5_49_segments/midi_events.json": "388dd60777bd2e64ce9398cd291ca3bfd70f7975c07c08f9777c71ae0347906e",
++  "examples/aligned_musical/rc5_49_segments/representation_report.json": "88b9d1b76efe994b5d339d24e8dfb8190b610f53b545c05ad990925c15585c1c",
++  "examples/aligned_musical/rc5_49_segments/runtime_profile.json": "362ace23fd7ab3ae3fdb3b592ca71b43e0fb8c25f0bb936baabb54491d56860a",
++  "examples/aligned_musical/rc5_49_segments/sample_requirements.json": "b8165c03e797c240b05f7004d74f606baf2bf94ad01dccf0c37ab38d85876b3d",
++  "examples/aligned_musical/rc5_49_segments/sample_warmup.js": "f9d216bedcbff540667ead614898c62a5bc04dc0e83920f0be4438f027c523c5",
++  "examples/aligned_musical/rc5_49_segments/semantic_map.json": "594eedbf7df1845bc5d3f526b412e5e1219e7e514ebe6c266483156c7a817ee2",
++  "examples/aligned_musical/rc5_49_segments/source.mid": "3ed65c545dfc502410ef7cd0fcdb18ea584ece4b0c5f2b538507ad1f67edf327",
++  "examples/aligned_musical/rc5_49_segments/source_inputs.json": "3aedf41fa6ff7f3c18a3f3645b7385c80c5f8ead0ea466c87a14c09fd878582b",
++  "examples/aligned_musical/rc5_49_segments/strudel_audio_aligned.js": "b8a6e39775ddbde84bc87aa89a1baea036302fc3da0bd691dfb91e478fba9c14",
++  "examples/aligned_musical/rc5_49_segments/strudel_audio_aligned_musical.js": "9eafbac6a926d768bd36fbb4a61a7474e82686937f42e45a695206c36f47ab6d",
++  "examples/aligned_musical/rc5_49_segments/strudel_compact.js": "2c7b3dff0d4bebc4f1dcc852805bb53ef8aac6a971abafd253eaa9fb085f1a28",
++  "examples/aligned_musical/rc5_49_segments/strudel_exact.js": "8ebd5016585a8c42d4468ba50a6a69964d335cc9582e3b44be3644f6e43d864b",
++  "examples/aligned_musical/rc5_49_segments/strudel_musical.js": "6b54a02bc7c8b05e724e5e04cadf5fdff4393ecf9a7f421b4b0f30eb459b3b8f",
++  "examples/aligned_musical/rc5_acid_architecture/aligned_arrangement_dag.json": "3715f1abdc406be642e5f801480e27e744fbcff2bb89f64c96a5da7356716c85",
++  "examples/aligned_musical/rc5_acid_architecture/aligned_equivalence_report.json": "bf881683ed6c3dc9f03bb4fb82c31a4b853ae68f36a39fd028982ad6530cddc1",
++  "examples/aligned_musical/rc5_acid_architecture/aligned_musical_plan.json": "c9399fabcbe96aca16b8bb323b9a0db2a7bb6762576286a0126c429104948824",
++  "examples/aligned_musical/rc5_acid_architecture/aligned_runtime_report.json": "bf881683ed6c3dc9f03bb4fb82c31a4b853ae68f36a39fd028982ad6530cddc1",
++  "examples/aligned_musical/rc5_acid_architecture/aligned_strudel_ir.json": "d89c967aa2c936cdd823907b702185bf8135c13f0f588023fde2791dd99d576a",
++  "examples/aligned_musical/rc5_acid_architecture/alignment_result.json": "a240c2fce6f9c9ca50b35e0ba875614d6c0381c060ac65b0fbeb6b14afb0ce14",
++  "examples/aligned_musical/rc5_acid_architecture/alignment_transform.json": "c6375f395dd5ccc4c17d4b1de1af8e502f998a8a07021c92ee4a1269166484dd",
++  "examples/aligned_musical/rc5_acid_architecture/browser_probe.js": "7a37487ab389769e4b2dd4e2bf1fbdef7775b9a992b366d992cdfaa9cf7ae69a",
++  "examples/aligned_musical/rc5_acid_architecture/code_metrics.json": "0bfef2c5f0a2a46bee1b96f5dbfaa85bd96589863e795b45892596750477abfd",
++  "examples/aligned_musical/rc5_acid_architecture/exact_midi.mid": "33e561afcc6012aec82da1d7474ef1c518392c1b9eadbdcce394d6fc02b3b613",
++  "examples/aligned_musical/rc5_acid_architecture/midi_events.json": "010bc2f881acd5101d83ee970f3b8e5282a672315ae10dea2190eb9e2272fa62",
++  "examples/aligned_musical/rc5_acid_architecture/representation_report.json": "9723113e2171c4f37521b0ecbd018b77ad3f0b4f4c7036b0f5c73606053d29ba",
++  "examples/aligned_musical/rc5_acid_architecture/runtime_profile.json": "362ace23fd7ab3ae3fdb3b592ca71b43e0fb8c25f0bb936baabb54491d56860a",
++  "examples/aligned_musical/rc5_acid_architecture/sample_requirements.json": "0d2140a5f8e1e188faea0c00e633b57770d5eb020f82f4ae46d342cff2041487",
++  "examples/aligned_musical/rc5_acid_architecture/sample_warmup.js": "f9d216bedcbff540667ead614898c62a5bc04dc0e83920f0be4438f027c523c5",
++  "examples/aligned_musical/rc5_acid_architecture/semantic_map.json": "9594d9bbd16ab3cb2bc3a83510c2f057082fa3f928c576f9dbbbe13062d57729",
++  "examples/aligned_musical/rc5_acid_architecture/source.mid": "33e561afcc6012aec82da1d7474ef1c518392c1b9eadbdcce394d6fc02b3b613",
++  "examples/aligned_musical/rc5_acid_architecture/source_inputs.json": "3cf3777d7c8c66a96797d9b48b8f66e2c33ce2abf7d109ae9b5e7dc6ba46fa34",
++  "examples/aligned_musical/rc5_acid_architecture/strudel_audio_aligned.js": "6b320e480c0662d5ce7f54c8fea3ad8f49aaeb2f17af692df7da2b4c70b26501",
++  "examples/aligned_musical/rc5_acid_architecture/strudel_audio_aligned_musical.js": "28c70205903ca6792281023cd8f38db5f801f1b805cb234f4cf99b121327b219",
++  "examples/aligned_musical/rc5_acid_architecture/strudel_compact.js": "0a10e00ef918a57c4dc50b20420fd09f192abf5502553f8482742702435ca741",
++  "examples/aligned_musical/rc5_acid_architecture/strudel_exact.js": "bd508b17470faa94a83a9f4d2b0ccec2ce038ef86a37be57a8499184e709890f",
++  "examples/aligned_musical/rc5_acid_architecture/strudel_musical.js": "85444d6ce7d69b7de5b2c565e099650f3e0013f0da06a58dbd3111cbd40eef03",
+   "examples/aligned_musical/review_49_segments/aligned_browser_report.json": "a54d2acebb782947221dbfc38b3ec63c6fd53abb2ec5bdd30c102dcef06ef96b",
+   "examples/aligned_musical/review_49_segments/aligned_equivalence_report.json": "127177aa56e8e21c1e3a7d361caee154cb6f11be57b7f15e5f18a15b5fdc9b9d",
+   "examples/aligned_musical/review_49_segments/aligned_musical_plan.json": "018bfb7f3bc8222a5cf453c814fc5646d95d791edd7d65636f8d2ef2c31a4463",
+@@ -536,7 +605,7 @@
+   "pytest.ini": "b160d82f7811555051f8966d8e02750a985227c1d022208c784e606946f2eada",
+   "requirements.txt": "016b3c4ea86da53538439f5bc7a11842a9514698b2b8a36da27dd31bf017e504",
+   "run.ps1": "132d7ebfc5e71adfa037424d4933fa238a49a692b21675e3e4901d08903b9a7c",
+-  "setup.ps1": "9b0c7660299fc75969ead374668d3d7f94a9a19010007321e8bedb129a2ce3ce",
++  "setup.ps1": "8dfd88caca8229179482e86314cf83b9ad0d838264492f76d3a62634adedfaa4",
+   "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "tests/conftest.py": "5d30bc57249890f2f92acc91515b40ec86da31a689cdbc76146bffbfaf00aff8",
+   "tests/musical_fixtures.py": "fee0e6736ff00c7600e0757b01f3660f4db356dcedcff44905baf206d8102d26",
+@@ -544,7 +613,8 @@
+   "tests/test_align.py": "ac4535466dd4ef5998516b0274817188a0f83d2fae3d90cfc6108ca81ae86788",
+   "tests/test_aligned_musical.py": "c4507399c785cd39b2801354d69aa061cc3e2335a1400da032c94f534bd96328",
+   "tests/test_arrangement_safety.py": "ab270d0f288d093bbd02625c0be137f5d7ffd3fe178da6759f2e34c463270928",
+-  "tests/test_build_provenance.py": "dacbe67ca38d981857c008a457a4edffd728a4f8722a204e647cc49bc3f3e8e4",
++  "tests/test_bad_key_signature_hotfix.py": "beea5f26b1be4574861c4863820f9db05a4a6d8ade152472f4932e4091f366b9",
++  "tests/test_build_provenance.py": "a77f5e467142a31aee30a3a994a899c96e797108431307227922d5c56e000b8d",
+   "tests/test_compact.py": "73f26cce1e687ae653985ba2e82800bf69e259e1732e27381162bdd796586143",
+   "tests/test_compact_audit.py": "7c2efafa5be961742085840a7e37bc33bbcf93575090339cd7d64251c2d68c57",
+   "tests/test_emit_strudel.py": "53364bedeb078e216ab298b9870fc51de565a071e2389f6a8f6d8e3cbb829dba",
+@@ -554,15 +624,18 @@
+   "tests/test_midi_reader.py": "475688cda0bd5c122bb5a3764601b13793ac6dcb43198f13cd6711954622dba7",
+   "tests/test_musical.py": "e36354feac9dc1546032c891e4a47d9eabd7eb5f545e5a2024d4e5582974f3de",
+   "tests/test_review_fixes.py": "2d4afd2f8973778248dfb7875920c47e6088a90042fbf64e19c058c1f6f30a39",
++  "tests/test_runtime_knowledge_rc5.py": "0b37c0090f17b620e4c24a3f2394cc397cbf4514e6e12e4f87cc05bf6e7f35bd",
+   "tests/test_self_audit_rc3.py": "231e2508546827d2e6fa2eef0ea639507f3197fc5f573683ca46247cb8def05a",
+-  "tests/test_server.py": "45b68d00ba9ef7911cd3e3095325e678d1053cd2f022cb888df87754c0b4f3dd",
++  "tests/test_server.py": "81c0df3b6fa1eff4f32d29e8900dc7dbbfb00cafd5ff7c1300fb50f9cec5793e",
+   "tests/test_tempo.py": "ca357d13e6088dbd4860bc602069cba19cf815edca65102e4b645023be42ffe5",
+   "tools/build_aligned_evidence.py": "fdd642db91a3dce255cea919837ccb5d5ab731fcc3513ee13904b70f0f24477a",
+   "tools/build_musical_evidence.py": "ac9597486ad68a1171c96d1cac34ce726d4dfab3992b154227b56d7fbaf72042",
++  "tools/build_rc5_evidence.py": "c8a65c279a7ee70a52e72cd1fe1719b7fde2c727789c012abfe43dc74f66210d",
+   "tools/compact_evidence.py": "59787052df35d4cc310adee1928feb8eee7fcecd62a2b1e920573990f470e3d8",
+   "tools/runtime_check/README.md": "b3a8661c07ac2ae67533fe5bf5ec0b1c864435a5c03779c05f1037e440f995bd",
+-  "tools/runtime_check/aligned_query.mjs": "8dced8693e38986f0e5197f375129ff15297a045a4d26c5f5498f2f17f96fa0b",
++  "tools/runtime_check/aligned_query.mjs": "8c925741b1f80529e2ea64f28e5c6e29ed72e2f1c4e4f89f6b7fefc50c5fd82f",
+   "tools/runtime_check/alignment_probes.mjs": "82d0db167c649a3af76a2cf8d7c376c561f0b8e29e900c11db2a87684c409c85",
++  "tools/runtime_check/candidate_query.mjs": "7265fc64303b86cfb4a128f600a712327c50799bf79a2aec88d7286db1212495",
+   "tools/runtime_check/code_metrics.mjs": "9d0f40bfa25897139b0eae9ced9cbbfdc0befefc96f6c6af1b93a427b6f2f962",
+   "tools/runtime_check/compact_query.mjs": "827b44b3a9468e703266830469ca3f5d240ab53fc506d8916c08da046c14705c",
+   "tools/runtime_check/musical_query.mjs": "8aa0fa977cca308ffb7e97832f7e22dcb1cc12f8d31756adb1eeff036199e6d4",
+@@ -678,13 +751,15 @@
+   "tools/runtime_check/package-lock.json": "d28ab1ea8a013628fa8492bed32fd810c13ba9cf5ed2d78022cb6805e7e2b35f",
+   "tools/runtime_check/package.json": "d4315100ae112d86e306d081a9c0478ba890b99addd4494fd67563cbfa0f55f8",
+   "tools/runtime_check/parameter_probes.mjs": "0253b564c337a6dbef3e909e4e0d856eb35e595152e143668d32a6d053cc9bef",
++  "tools/runtime_check/profile_check.mjs": "f42a93e52cadbde0d825f591e60286eddae36d8d6fec28a28213a0a8a659aee0",
+   "tools/runtime_check/query_file.mjs": "1f4b774bddbe79a04261d5f78d34bb683b17ba435637f35f22416c599c9dccf5",
+   "tools/runtime_check/runtime_check.py": "c14b5a06bc8adb5d3885382e02401714c61c0923146dfc80f861446ac564c776",
++  "tools/runtime_check/runtime_identity.mjs": "1f02275dabcb03f93b8b776b0e6674ffe34cb779c58aa160789a5123dde1e943",
+   "tools/runtime_check/three_path_query.mjs": "63bd6106241b925a0dcff458584242c53ec2b576cfdbd226e7dcd8701e42bc5b",
+   "tools/runtime_check/ui_async_probe.mjs": "d0cfa47cfa37f0eb4c2bb45c17bc21fe4cde16da08f86a15ae44910f5a11f3f0",
+   "tools/runtime_check/verify_techniques.mjs": "6371e538c7e5379ad32c77822b4f9529bee2f523ce973039197c94d4377c1dbe",
+   "tools/stamp_build.py": "17066c8d8617de28a7291409febdef03a3784655bd8242886011dd6257efb115",
+-  "ui/app.js": "41076bb9a533e291c1861ebf3aa739e222a2578f94749d90cd1eb98e49c96753",
++  "ui/app.js": "11a9fcf44be061ffae6caea7bbbd0eef427516821d22e60f75854eb850fe7c66",
+   "ui/index.html": "68dd14fcb6113f5215de48f9364d9d89a902e54ea62333db1e74c6fa61db460f",
+   "ui/style.css": "4544247624138f6241cdd963b4cc6812ea210930e5ba0e850e85a255140bb6ec"
+-}
+\ No newline at end of file
++}
+diff --git a/MANIFEST_SHA256.txt b/MANIFEST_SHA256.txt
+index 1ca2e8e..5e08cdb 100644
+--- a/MANIFEST_SHA256.txt
++++ b/MANIFEST_SHA256.txt
+@@ -6,7 +6,10 @@ a7f9f6b2682a197b242fac2876852eb0af8a99eb326cbf486c47692999861be4  CHECKPOINT.md
+ eddbe4a72eca1f747fd9a9af7be67d6f1ec2f822ce09a2c263628a952aa18532  CHECKPOINT_RC3.md
+ f7e4d908346686f2a519bad4591490eed30374bceb592fdfc592bb02ec6ee566  CHECKPOINT_RC5.md
+ 9a855b8059bfd7f489836b9436d5bb6c62ce1f6c3815edb8eee8b573ca309c4f  FINAL_AUDIT.md
+-d56c3b22ea5cf78bf408d145219c187f749738e4fd07720b3fe36eb611288d85  MANIFEST_SHA256.json
++b9dda26f143d53c99dded0118a734328b718c97f0367270085962d2ef9e4a762  HOTFIX_MANIFEST_SHA256.json
++5eb9e67801b604776953e9fd5d339f9db680b474133552c95a4085411b1cf3ca  HOTFIX_TEST_REPORT.md
++92714bbbe14d7ad8b94ea87b61d52bc6e9b7f23def25ed9385c523f7409dab3e  KEY_SIGNATURE_HOTFIX_TEST_REPORT.md
++e6eb3101f3baf4c9c3dae7aa3f7a361c0b567e083f3d5117ed9f5e6a30a2dcfa  MANIFEST_SHA256.json
+ a7f9f6b2682a197b242fac2876852eb0af8a99eb326cbf486c47692999861be4  PERFORMANCE_REPORT.md
+ 76aea5afbe13b8b2ea0ec2a6f8ee534828b55a1d03a313d3e1e2aef1fc464591  README.md
+ eb1315f217a5fc45064957311dda62b009e528e6bb53d0be4b1fceb0e9be1916  RELEASE_NOTES_COMPACT.md
+@@ -17,16 +20,19 @@ a6a63575ea9352c3639b7fb29e1ab5da69e263928a52ab5d080850d1a245bef0  REVIEW_FIXES.m
+ 546c6c292145423a23b66ad07d60f03b250fd4c0a4017f3a4820706e14d7d9bf  SPEC_TRACKING_2026-09-24.md
+ f06962da85db13dbaa5c5fd52cd24308d01c1133fc41c39c37316bdf2e9c4518  TECHNIQUE_REGISTRY.json
+ a7f9f6b2682a197b242fac2876852eb0af8a99eb326cbf486c47692999861be4  TEST_REPORT.md
+-46ff3df9e29758f468b0f2d63df01d79c2b458f6917932544a2cbf56e552acbe  VERSION.json
++f071ee075cf38ab748a8e1601e98520f0be4a49fe474f692b3db934ccd658603  VERSION.json
++47a9fdde5741a718c04b68be7bdc7139f7eefec16a606cdc0ddd9f2286ece248  WINDOWS_BUILD_FIX_NOTES.md
++2ef4d1d24092e4e2a5b08e79cd73cbf9ef7dff59820c3d70c5289391d7a23986  WINDOWS_CONVERT_FIX_NOTES.md
++4272b9b46ae7e1372d14705a7274a197afd795b93cc7173c69acbb024e3a163f  WINDOWS_KEY_SIGNATURE_FIX_NOTES.md
+ e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  app/__init__.py
+ 091528f0b5c1dfb0277f1b71720ed743937057ccb2e25b9514b3ca158e4b76a4  app/aligned_audit.py
+ e36fc13f96a91eff7c4fa84846f66c19723d1b9d152d3bdad74f17c55c1d0b3b  app/aligned_ir_emitter.py
+ 233e47250870d439c839aca905fafccad0369c063ce3a8f24f82c8acb7ce2dd2  app/aligned_musical.py
+ 79576c33dfda3b33f23c0fa7698b318d68aa1adb5c26fab4d62ab3676e55aa2d  app/arrangement_dag.py
+ d1eeacbec58b2a16af5e481331a7c80a36fd03d0a4e046c4a547110bc2345d48  app/audio_align.py
+-ca7f93717d5189f9b879d1c8c9d0759b96902112424972c4e754b4ee2a822d8e  app/build_info.py
++7143199c45ee3c9a5c50a893190686fc61684d09dd524f75ae0bcaaf66fb12ed  app/build_info.py
+ 602a9cbe29c684fc86ec63f9bb6732ad2581ef2494a29ba279b19b7cf42edada  app/candidate_runtime.py
+-aead90810453e31d7c3cf90eec3567ef149aac4531a6c9f43a9573e733299094  app/cli.py
++ffbbc4f5dcac748283203f0713262e5cca5b429f4c37690a7385d1ff24514ff7  app/cli.py
+ 00169b53886c3ab75b9bd14e6f365c3ad4b739c90edcfdcb738581fabcd70d4f  app/compact.py
+ 64322fb4351f0b37575822df61af251ad504a7e4ac7a7f9592e0a88061e34ab9  app/compact_audit.py
+ 67ea346bf313198cee27d10e0032e2e64d0ada0fd7ff604f21b48254f957bc05  app/data/reconstruction_techniques.json
+@@ -40,6 +46,7 @@ e133cf2819c83d78250c432ca8f2a212aed11dc10d8c5b64bcce3eaabb67b39e  app/data/sampl
+ e13157f30cc526478e2eae1e54bdf80aa0868a909fedceabc67218dc7349dcd0  app/input_provenance.py
+ 7e8e6a895f4eef9fa410bd18c2a96251799e81979db0f72674850a77b9663544  app/instruments.py
+ 407d99912375a20ac8807a814100eeb384db584a7fc53cc489f84846f26b4a29  app/local_precise.py
++49f31a52ab0be8f8b2c0964bd780b335996e5a189234f09bdb1241ec1b50d675  app/midi_input_recovery.py
+ 59f06190411809a706f2141348a301c10e1e18e4c35ab92fd59a7c4c88f591d6  app/midi_reader.py
+ 7bd8e06992049f3b26624db7ef6be92c950cef052dfde704fb66186ecb218c9a  app/midi_writer.py
+ 42dc08a663efd0f9856bfb504d27311223b9b67e6614cd8c679e5962e4617c04  app/musical.py
+@@ -50,7 +57,7 @@ f853840bb7f3507e722e7374b8abcb74dcf9c8d4984449c470877da4fa2083fe  app/runtime_pr
+ 098a7666bdb2889b50f1e773bc67b583672b3e2ab91dc2af44edd8639fa09d51  app/sample_registry.py
+ 0dc68408204d0ca992ff8f15d8aa0c02ead4fcda66cd837622cda95a1eac35bd  app/semantic.py
+ 8fca252ef99be792bd7b7ad354b3541966787184a8a151bd581a11d2c1958608  app/semantic_safety.py
+-d34e86da09c74fb6afe32923f2f88f1d335ccc37a0f8cb1b1856820d297a0c82  app/server.py
++f94ea3a4a1ba967a780475be5e30a823d62f164f768cc8dad60e0501b9059da9  app/server.py
+ e665b35c1a9266d7cab484fb90f23ece62ce5de40e18f03895c5907523e29e89  app/synth_fixture.py
+ a07be2791f161fff35c4223c652df0e50e15978ff97f72ae78dc057b7709745c  app/technique_matcher.py
+ 21754f3c2a69be073dfce8d9e8e7009704fffdd9ab5dbddb57c63bb30c628f25  app/tempo.py
+@@ -607,7 +614,8 @@ a19199e5446f63c6439add7fc6516eeef363331307464f8ffb8be06252703dd6  tests/test_aci
+ ac4535466dd4ef5998516b0274817188a0f83d2fae3d90cfc6108ca81ae86788  tests/test_align.py
+ c4507399c785cd39b2801354d69aa061cc3e2335a1400da032c94f534bd96328  tests/test_aligned_musical.py
+ ab270d0f288d093bbd02625c0be137f5d7ffd3fe178da6759f2e34c463270928  tests/test_arrangement_safety.py
+-dacbe67ca38d981857c008a457a4edffd728a4f8722a204e647cc49bc3f3e8e4  tests/test_build_provenance.py
++beea5f26b1be4574861c4863820f9db05a4a6d8ade152472f4932e4091f366b9  tests/test_bad_key_signature_hotfix.py
++a77f5e467142a31aee30a3a994a899c96e797108431307227922d5c56e000b8d  tests/test_build_provenance.py
+ 73f26cce1e687ae653985ba2e82800bf69e259e1732e27381162bdd796586143  tests/test_compact.py
+ 7c2efafa5be961742085840a7e37bc33bbcf93575090339cd7d64251c2d68c57  tests/test_compact_audit.py
+ 53364bedeb078e216ab298b9870fc51de565a071e2389f6a8f6d8e3cbb829dba  tests/test_emit_strudel.py
+@@ -619,7 +627,7 @@ e36354feac9dc1546032c891e4a47d9eabd7eb5f545e5a2024d4e5582974f3de  tests/test_mus
+ 2d4afd2f8973778248dfb7875920c47e6088a90042fbf64e19c058c1f6f30a39  tests/test_review_fixes.py
+ 0b37c0090f17b620e4c24a3f2394cc397cbf4514e6e12e4f87cc05bf6e7f35bd  tests/test_runtime_knowledge_rc5.py
+ 231e2508546827d2e6fa2eef0ea639507f3197fc5f573683ca46247cb8def05a  tests/test_self_audit_rc3.py
+-45b68d00ba9ef7911cd3e3095325e678d1053cd2f022cb888df87754c0b4f3dd  tests/test_server.py
++81c0df3b6fa1eff4f32d29e8900dc7dbbfb00cafd5ff7c1300fb50f9cec5793e  tests/test_server.py
+ ca357d13e6088dbd4860bc602069cba19cf815edca65102e4b645023be42ffe5  tests/test_tempo.py
+ fdd642db91a3dce255cea919837ccb5d5ab731fcc3513ee13904b70f0f24477a  tools/build_aligned_evidence.py
+ ac9597486ad68a1171c96d1cac34ce726d4dfab3992b154227b56d7fbaf72042  tools/build_musical_evidence.py
+@@ -752,6 +760,6 @@ c14b5a06bc8adb5d3885382e02401714c61c0923146dfc80f861446ac564c776  tools/runtime_
+ d0cfa47cfa37f0eb4c2bb45c17bc21fe4cde16da08f86a15ae44910f5a11f3f0  tools/runtime_check/ui_async_probe.mjs
+ 6371e538c7e5379ad32c77822b4f9529bee2f523ce973039197c94d4377c1dbe  tools/runtime_check/verify_techniques.mjs
+ 17066c8d8617de28a7291409febdef03a3784655bd8242886011dd6257efb115  tools/stamp_build.py
+-7e9da1bd9bb9850414ab1332b5704da555accab9c0a01de47a1b14369eacaa4d  ui/app.js
++11a9fcf44be061ffae6caea7bbbd0eef427516821d22e60f75854eb850fe7c66  ui/app.js
+ 68dd14fcb6113f5215de48f9364d9d89a902e54ea62333db1e74c6fa61db460f  ui/index.html
+ 4544247624138f6241cdd963b4cc6812ea210930e5ba0e850e85a255140bb6ec  ui/style.css
+diff --git a/VERSION.json b/VERSION.json
+index 3410de3..81a07d5 100644
+--- a/VERSION.json
++++ b/VERSION.json
+@@ -9,6 +9,6 @@
+   "exact_generator_version": "Production metadata supplied from VERSION.json; frozen emitter implementation unchanged",
+   "release_gate": "BLOCKED: real VOLOGDA original MIDI/reference audio, native Windows launch and audible output acceptance remain unverified.",
+   "checkpoint": "runtime-proof-and-source-provenance",
+-  "build_id": "e164fd6a744d182a",
++  "build_id": "65a722e08877de0b",
+   "recovery_note": "Resumed from saved rc3; lost rc4 scratch evidence is not used as acceptance."
+ }
+\ No newline at end of file
+diff --git a/WINDOWS_BUILD_FIX_NOTES.md b/WINDOWS_BUILD_FIX_NOTES.md
+new file mode 100644
+index 0000000..446e499
+--- /dev/null
++++ b/WINDOWS_BUILD_FIX_NOTES.md
+@@ -0,0 +1,27 @@
++# TREBLO v1.2.1-rc.5 — Windows build identity hotfix
++
++## Root cause confirmed
++
++`app/build_info.py` hashed `str(path.relative_to(ROOT))`.
++On Windows this contains `\\` path separators; on Linux it contains `/`.
++This made the exact same distribution compute different BUILD_ID values:
++
++- Original POSIX: `e164fd6a744d182a`
++- Original Windows: `bff417203670560c` (as on the supplied screenshot)
++
++## Patch
++
++Use `path.relative_to(ROOT).as_posix()` for hashing on all OS.
++Then restamp frontend `ui/app.js` and `VERSION.json` using `tools/stamp_build.py`.
++New build ID: `366366b190edaa21`.
++
++## Windows installation
++
++1. Stop every TREBLO process and close old browser tabs.
++2. Extract this ZIP into a **new empty directory** (do not merge with old checkpoint).
++3. Use `.\run.ps1` from that directory (run `.\setup.ps1` on first launch if required).
++4. Open `http://127.0.0.1:8765/`; then hard-refresh with Ctrl+Shift+R.
++5. The UI must no longer show BUILD_MISMATCH, and `/api/health` must return build `366366b190edaa21`.
++6. If the port belongs to an old instance, run `.\diagnose.ps1`, terminate the old TREBLO process and retry.
++
++Frozen canonical MIDI/alignment modules were not modified. Native Windows and user-input acceptance still need actual machine-side verification.
+diff --git a/WINDOWS_CONVERT_FIX_NOTES.md b/WINDOWS_CONVERT_FIX_NOTES.md
+new file mode 100644
+index 0000000..09b112e
+--- /dev/null
++++ b/WINDOWS_CONVERT_FIX_NOTES.md
+@@ -0,0 +1,16 @@
++# TREBLO v1.2.1-rc.5 — Windows conversion hotfix
++
++This hotfix follows the Windows build-ID path-normalization fix.
++
++Changes:
++
++1. Reference audio no longer triggers decoding/alignment when only MIDI-derived modes
++   (Exact / Compact Safe / Compact Musical / Quantized) are selected.
++2. Unexpected `/api/convert` pipeline failures are converted to JSON HTTP 500 responses
++   and the traceback remains visible in the local server console.
++3. The frontend parses the response defensively and reports HTTP/non-JSON failures
++   explicitly instead of showing `Unexpected token ... is not valid JSON`.
++4. Frozen canonical MIDI/timing modules were not intentionally modified.
++
++Observed user symptom addressed: Compact Safe selected with a WAV still attached, followed
++by `Unexpected token 'I', "Internal S"... is not valid JSON`.
+diff --git a/WINDOWS_KEY_SIGNATURE_FIX_NOTES.md b/WINDOWS_KEY_SIGNATURE_FIX_NOTES.md
+new file mode 100644
+index 0000000..3e3eed5
+--- /dev/null
++++ b/WINDOWS_KEY_SIGNATURE_FIX_NOTES.md
+@@ -0,0 +1,59 @@
++# TREBLO v1.2.1-rc.5 — Invalid MIDI key-signature metadata hotfix
++
++New cross-platform build ID: `65a722e08877de0b`
++
++## User-reported error
++
++`KeySignatureError: Could not decode key with 14 sharps and mode 0`
++
++MIDI key-signature meta-event FF 59 has two bytes:
++- signed fifths/sharps/flats count, valid from -7 to +7
++- mode, valid 0=major or 1=minor
++
++A value of +14 sharps is invalid according to Standard MIDI conventions.
++The Mido library raises a KeySignatureError while decoding MIDI metadata,
++*before* TREBLO's canonical note parser can run.
++
++## Focused fix
++
++- Added `app/midi_input_recovery.py` before the FROZEN MIDI parser.
++- Normal valid MIDI files still use the exact original parser unchanged.
++- Only if Mido raises `KeySignatureError`, scan MIDI message boundaries and
++  replace **invalid key metadata bytes only** with temporary neutral C-major
++  bytes for decoding. This is an in-memory adaptation, NOT a key transposition.
++- Mark the surrogate key metadata as invalid, exclude it from `key_signatures`,
++  report exact original signed value/mode/track/tick/byte offset in
++  `meta.invalid_key_signatures` and append an explicit warning.
++- Preserve all actual note messages, velocities, timing, tempo and CC data.
++- Save the user-provided original MIDI **bit for bit** in `exact_midi.mid`.
++- Source SHA-256 is calculated from the original MIDI file, not the adapted copy.
++- The `app/midi_reader.py` source is frozen and was **not changed**.
++- Other decoding errors and structurally invalid MIDI are *not* silently ignored.
++
++## Testing status
++
++- Synthetic source with **the exact reported invalid key +14, major mode 0**
++  reproduced Mido's exception before fix and completed Compact Safe after fix.
++- 77 targeted regression tests PASS after restamping.
++- Full pytest suite NOT COMPLETED (execution time exceeded local limit).
++- The specific user `RHODES (Without Lead Vocal).mid` is **not provided** in the
++  working sandbox, so the real-file Windows case must be checked by the user.
++- All 12 evidence-listed modules are byte-identical to the previous installed ZIP.
++- Inherited discrepancy: `app/exporter.py` in the source rc.5 archive already differs
++  from the archived rc.3 frozen-hash record; it is NOT changed by this patch.
++  The other 11 frozen hashes match the archived evidence.
++- This is still a DEVELOPMENT CHECKPOINT, not a final accepted Windows release.
++
++## Installation and acceptance test
++
++1. Stop the old TREBLO PowerShell server.
++2. Extract ZIP into a NEW empty folder (do not merge versions).
++3. Start using `.\run.ps1` (run `.\setup.ps1` if needed).
++4. Open `http://127.0.0.1:8765/` and hard-refresh (`Ctrl+Shift+R`).
++5. Check frontend and backend both display build `65a722e08877de0b`.
++6. Upload `RHODES (Without Lead Vocal).mid`, optionally keep `RHODES.wav` attached.
++7. Select only **COMPACT SAFE** and Convert.
++8. Verify the resulting JS, warnings, note/event count and whether it plays.
++9. Check warning identifies discarded *invalid metadata*, not removed notes.
++
++If another error appears, share the new message and console stack trace.
+diff --git a/app/build_info.py b/app/build_info.py
+index 3960339..d6886de 100644
+--- a/app/build_info.py
++++ b/app/build_info.py
+@@ -14,7 +14,7 @@ def source_build_id():
+             value=json.loads(data);value.pop('build_id',None);data=json.dumps(value,sort_keys=True).encode()
+         if path.name=='app.js':
+             data=b'\n'.join(line for line in data.split(b'\n') if not line.startswith(b'const FRONTEND_BUILD_ID ='))
+-        digest.update(str(path.relative_to(ROOT)).encode()+b'\0'+data)
++        digest.update(path.relative_to(ROOT).as_posix().encode()+b'\0'+data)
+     return digest.hexdigest()[:16]
+ BUILD_ID=source_build_id()
+ def build_descriptor():
+diff --git a/app/cli.py b/app/cli.py
+index fd4747a..56c41d4 100644
+--- a/app/cli.py
++++ b/app/cli.py
+@@ -20,7 +20,7 @@ from .compact import emit_compact, emit_code_parts
+ from .musical import emit_musical
+ from .exporter import export_project
+ from .instruments import SOUND_MODES
+-from .midi_reader import parse_midi
++from .midi_input_recovery import parse_midi_with_key_recovery
+ from .midi_writer import build_offset_fn, write_aligned_mid
+ from .report import build_diagnostics, build_timeline_data, render_html
+ 
+@@ -50,14 +50,18 @@ def run_pipeline(*, midi_bytes: bytes, midi_name: str, outdir: str | Path,
+     if sound_mode not in SOUND_MODES and sound_mode != "manual":
+         raise ValueError(f"sound_mode must be one of {SOUND_MODES}")
+ 
++    alignment_requested = any(m in modes for m in ("aligned", "aligned_musical"))
+     if "aligned_musical" in modes and not audio_path:
+         raise ValueError("AUDIO ALIGNED MUSICAL requires reference audio; no fallback")
+-    doc = parse_midi(midi_bytes, name=midi_name)
++    doc = parse_midi_with_key_recovery(midi_bytes, name=midi_name)
+     audio = None
+     alignment: AlignmentResult | None = None
+     extra_warnings: list[str] = []
+ 
+-    if audio_path:
++    # Reference audio must never trigger expensive alignment implicitly.
++    # A user may keep an audio file attached while exporting Exact/Compact/Musical;
++    # those modes are MIDI-derived and must remain independent of audio decoding/DSP.
++    if alignment_requested and audio_path:
+         audio = load_audio(audio_path)
+         alignment = align(
+                 doc, audio, model=align_model,
+@@ -68,6 +72,9 @@ def run_pipeline(*, midi_bytes: bytes, midi_name: str, outdir: str | Path,
+         extra_warnings.append("AUDIO REQUESTED alignment but no audio supplied — "
+                               "strudel_audio_aligned.js will not be generated")
+         modes = tuple(m for m in modes if m != "aligned")
++    elif audio_path and not alignment_requested:
++        extra_warnings.append("Reference audio attached but no audio-aligned mode selected — "
++                              "audio DSP skipped; MIDI-only export is unaffected")
+ 
+     strudel_files: dict[str, str] = {}
+     track_files_map: dict[str, str] = {}
+diff --git a/app/midi_input_recovery.py b/app/midi_input_recovery.py
+new file mode 100644
+index 0000000..489574c
+--- /dev/null
++++ b/app/midi_input_recovery.py
+@@ -0,0 +1,140 @@
++"""Narrow compatibility adapter for malformed Standard MIDI key-signature metadata.
++
++MIDI meta 0xFF 0x59 contains a signed sharps/flats count (-7 .. +7) and
++mode (0 major, 1 minor). Some DAWs export invalid values (e.g. +14).
++Mido raises KeySignatureError *before* the canonical parser can see notes.
++
++Only on that exact exception, scan MIDI message boundaries, replace invalid
++key-signature payload bytes in a temporary memory copy, and parse with the
++unchanged canonical parser. Source MIDI bytes, exported exact_midi.mid, tempo,
++notes, velocities and timing never change. Bad key meta is reported, not treated
++as a musical key. Other malformed MIDI errors remain errors.
++"""
++from __future__ import annotations
++
++from mido.midifiles.meta import KeySignatureError
++
++from .midi_reader import parse_midi
++
++
++def _vlq(buf: bytes, cursor: int, limit: int) -> tuple[int, int]:
++    """Read a MIDI variable-length integer inside one track."""
++    value = 0
++    for _ in range(4):
++        if cursor >= limit:
++            raise ValueError("truncated MIDI variable-length integer")
++        c = buf[cursor]
++        cursor += 1
++        value = (value << 7) | (c & 0x7F)
++        if not (c & 0x80):
++            return value, cursor
++    raise ValueError("invalid MIDI variable-length integer (>4 bytes)")
++
++
++def _key_metadata_repair(original: bytes) -> tuple[bytes, list[dict], list[dict]]:
++    """Return sanitized copy, invalid entries and *all* key metadata positions."""
++    if original[:4] != b'MThd' or len(original) < 14:
++        raise ValueError("invalid MIDI header")
++    hsize = int.from_bytes(original[4:8], 'big')
++    if hsize < 6 or 8 + hsize > len(original):
++        raise ValueError("invalid MIDI header length")
++
++    patched = bytearray(original)
++    invalid: list[dict] = []
++    all_keys: list[dict] = []
++    pos = 8 + hsize
++    track_index = 0
++    while pos < len(original):
++        if pos + 8 > len(original):
++            raise ValueError("truncated MIDI chunk header")
++        kind = original[pos:pos + 4]
++        length = int.from_bytes(original[pos + 4:pos + 8], 'big')
++        pos += 8
++        limit = pos + length
++        if limit > len(original):
++            raise ValueError("truncated MIDI track")
++        if kind != b'MTrk':
++            # Auxiliary MIDI chunks are not part of note/message streams.
++            pos = limit
++            continue
++        cursor, tick, running = pos, 0, None
++        while cursor < limit:
++            delta, cursor = _vlq(original, cursor, limit)
++            tick += delta
++            if cursor >= limit:
++                raise ValueError("truncated MIDI status byte")
++            status = original[cursor]
++            if status < 0x80:
++                if running is None:
++                    raise ValueError("MIDI running status without prior channel status")
++                status = running
++            else:
++                cursor += 1
++                if 0x80 <= status <= 0xEF:
++                    running = status
++
++            if status == 0xFF:
++                if cursor >= limit:
++                    raise ValueError("truncated MIDI meta-event")
++                meta_type = original[cursor]
++                cursor += 1
++                size, cursor = _vlq(original, cursor, limit)
++                end = cursor + size
++                if end > limit:
++                    raise ValueError("truncated MIDI meta-event payload")
++                if meta_type == 0x59 and size == 2:
++                    sf_raw, mode = original[cursor], original[cursor + 1]
++                    sf = sf_raw if sf_raw < 128 else sf_raw - 256
++                    entry = {"track_id": track_index, "tick": tick,
++                             "signed_sharps_flats": sf, "mode": mode,
++                             "byte_offset": cursor,
++                             "invalid": not (-7 <= sf <= 7 and mode in (0, 1))}
++                    all_keys.append(entry)
++                    if entry['invalid']:
++                        patched[cursor:cursor + 2] = b'\x00\x00'
++                        invalid.append(entry)
++                cursor = end
++            elif status in (0xF0, 0xF7):
++                # SysEx includes a VLQ payload length.
++                size, cursor = _vlq(original, cursor, limit)
++                cursor += size
++            elif 0x80 <= status <= 0xEF:
++                channel_command = status & 0xF0
++                n_data = 1 if channel_command in (0xC0, 0xD0) else 2
++                cursor += n_data
++            else:
++                raise ValueError(f"unsupported MIDI status 0x{status:02x} during key metadata recovery")
++            if cursor > limit:
++                raise ValueError("MIDI message exceeds track boundary")
++        pos = limit
++        track_index += 1
++    return bytes(patched), invalid, all_keys
++
++
++def parse_midi_with_key_recovery(source: bytes, name: str = '<memory>') -> dict:
++    """Parse normally; repair invalid key metadata only after KeySignatureError."""
++    try:
++        return parse_midi(source, name=name)
++    except KeySignatureError:
++        repaired_bytes, invalid, all_keys = _key_metadata_repair(source)
++        if not invalid:
++            raise
++        doc = parse_midi(repaired_bytes, name=name)
++        parsed_keys = doc['meta']['key_signatures']
++        if len(parsed_keys) != len(all_keys) or any(
++            item['track_id'] != found['track_id'] or item['tick'] != found['tick']
++            for item, found in zip(parsed_keys, all_keys)
++        ):
++            raise ValueError("key signature recovery audit failed: metadata positions changed")
++        doc['meta']['key_signatures'] = [
++            item for item, found in zip(parsed_keys, all_keys) if not found['invalid']
++        ]
++        doc['meta']['invalid_key_signatures'] = invalid
++        for item in invalid:
++            doc['warnings'].append(
++                "Invalid MIDI key-signature metadata ignored at "
++                f"track {item['track_id']} tick {item['tick']}: "
++                f"sf={item['signed_sharps_flats']} mode={item['mode']}. "
++                "Original source bytes preserved; notes/tempo/timing unchanged."
++            )
++        return doc
+diff --git a/app/server.py b/app/server.py
+index 5f57bf2..fd8b3c2 100644
+--- a/app/server.py
++++ b/app/server.py
+@@ -160,7 +160,17 @@ async def convert(
+             offset_override_ms=offset_override, per_track_files=True,
+             copy_audio=_bool(copy_audio), semantic_overrides=overrides)
+     except ValueError as exc:
++        shutil.rmtree(outdir, ignore_errors=True)
+         raise HTTPException(400, str(exc)) from exc
++    except Exception as exc:
++        # Keep the local web API JSON-shaped even for unexpected pipeline faults.
++        # Otherwise the browser receives Starlette's plain-text "Internal Server Error"
++        # and hides the real failure behind a JSON.parse error. The full traceback is
++        # still printed in the local PowerShell/console for diagnosis.
++        import traceback
++        traceback.print_exc()
++        shutil.rmtree(outdir, ignore_errors=True)
++        raise HTTPException(500, f"{type(exc).__name__}: {exc}") from exc
+     finally:
+         if tmp_audio is not None:
+             try:
+diff --git a/tests/test_bad_key_signature_hotfix.py b/tests/test_bad_key_signature_hotfix.py
+new file mode 100644
+index 0000000..f5dad57
+--- /dev/null
++++ b/tests/test_bad_key_signature_hotfix.py
+@@ -0,0 +1,93 @@
++"""Bad key metadata in 3rd-party MIDI cannot block note-accurate conversion."""
++import hashlib
++import json
++import mido
++import pytest
++from fastapi.testclient import TestClient
++from mido.midifiles.meta import KeySignatureError
++
++from app.midi_reader import parse_midi
++from app.midi_input_recovery import parse_midi_with_key_recovery, _key_metadata_repair
++from app.build_info import BUILD_ID
++from app.server import app
++from app.cli import run_pipeline
++
++
++def fixture_bad_key(*, malformed=b'\x0e\x00'):
++    midi=mido.MidiFile(type=1,ticks_per_beat=480)
++    track=mido.MidiTrack(); midi.tracks.append(track)
++    track.append(mido.MetaMessage('track_name', name='Rhodes'))
++    track.append(mido.MetaMessage('set_tempo',tempo=600001,time=0))
++    track.append(mido.MetaMessage('key_signature',key='C',time=0))
++    track.append(mido.Message('note_on',channel=0,note=60,velocity=97,time=12))
++    track.append(mido.Message('note_off',channel=0,note=60,velocity=0,time=180))
++    track.append(mido.MetaMessage('key_signature',key='Am',time=0))
++    track.append(mido.Message('note_on',channel=0,note=64,velocity=78,time=64))
++    track.append(mido.Message('note_off',channel=0,note=64,velocity=0,time=231))
++    track.append(mido.MetaMessage('end_of_track',time=0))
++    import io
++    buf=io.BytesIO();midi.save(file=buf)
++    raw=buf.getvalue()
++    marker=b'\xff\x59\x02\x00\x00'
++    assert raw.count(marker)==1
++    bad=raw.replace(marker,b'\xff\x59\x02'+malformed,1)
++    return raw,bad
++
++
++def test_mido_rejects_14_sharps_reproduction():
++    _,bad=fixture_bad_key()
++    with pytest.raises(KeySignatureError, match='14 sharps'):
++        parse_midi(bad)
++
++
++def test_recovery_keeps_every_original_note_and_good_key():
++    clean,bad=fixture_bad_key()
++    expected=parse_midi(clean)
++    patched, ignored, allkeys = _key_metadata_repair(bad)
++    assert len(patched)==len(bad)
++    assert len(ignored)==1 and len(allkeys)==2
++    assert sum(a!=b for a,b in zip(patched,bad))==1
++    assert patched==clean
++    doc=parse_midi_with_key_recovery(bad, name='RHODES.mid')
++    assert doc['notes']==expected['notes']
++    assert doc['tempo_map']==expected['tempo_map']
++    assert doc['control_changes']==expected['control_changes']
++    assert doc['tracks']==expected['tracks']
++    assert doc['meta']['key_signatures']==expected['meta']['key_signatures'][1:]
++    assert doc['meta']['invalid_key_signatures'][0]['signed_sharps_flats']==14
++    assert any('sf=14' in x for x in doc['warnings'])
++
++
++def test_other_invalid_key_mode_recovered():
++    _,bad=fixture_bad_key(malformed=b'\x02\x09')
++    doc=parse_midi_with_key_recovery(bad)
++    assert len(doc['notes'])==2
++    assert doc['meta']['invalid_key_signatures'][0]['mode']==9
++
++
++def test_good_midi_no_change():
++    good,_=fixture_bad_key()
++    assert parse_midi_with_key_recovery(good)==parse_midi(good)
++
++
++def test_pipeline_compact_bad_metadata_preserves_exact_source(tmp_path):
++    good,bad=fixture_bad_key()
++    result=run_pipeline(midi_bytes=bad,midi_name='RHODES.mid',outdir=tmp_path,modes=('compact',),sound_mode='native')
++    assert (tmp_path/'exact_midi.mid').read_bytes()==bad
++    record=json.loads((tmp_path/'source_inputs.json').read_text())
++    assert record['midi']['sha256']==hashlib.sha256(bad).hexdigest()
++    assert result['doc']['notes']==parse_midi(good)['notes']
++    assert (tmp_path/'strudel_compact.js').exists()
++    assert result['doc']['meta']['invalid_key_signatures']
++
++
++def test_api_compact_bad_key_returns_200():
++    _,bad=fixture_bad_key()
++    with TestClient(app) as client:
++        r=client.post('/api/convert',headers={'x-treblo-build':BUILD_ID},
++                      data={'modes':'compact','sound_mode':'native'},
++                      files={'midi':('RHODES.mid',bad,'audio/midi')})
++    assert r.status_code==200, r.text[:1200]
++    data=r.json()
++    assert 'strudel_compact.js' in data['files']
++    assert any('sf=14' in w for w in data['diagnostics']['warnings'])
+diff --git a/tests/test_build_provenance.py b/tests/test_build_provenance.py
+index ead79dc..87c3d76 100644
+--- a/tests/test_build_provenance.py
++++ b/tests/test_build_provenance.py
+@@ -42,3 +42,13 @@ def test_stale_browser_without_stamp_is_blocked():
+     response=TestClient(server.app).post('/api/convert',headers={'Origin':'http://127.0.0.1:8765'},files={'midi':('song.mid',f.releases())})
+     assert response.status_code==409
+     assert 'BUILD_MISMATCH' in response.text
++
++
++def test_portable_build_hash_path_separators():
++    # Windows and POSIX path spellings must hash identically after normalization.
++    from pathlib import PureWindowsPath, PurePosixPath
++    from app.build_info import ROOT, source_build_id
++    assert PureWindowsPath('app\\build_info.py').as_posix() == PurePosixPath('app/build_info.py').as_posix()
++    from app.build_info import BUILD_ID, DESCRIPTOR
++    assert source_build_id() == DESCRIPTOR['build_id'] == BUILD_ID
++    assert 'as_posix().encode()' in (ROOT / 'app' / 'build_info.py').read_text(encoding='utf-8')
+diff --git a/tests/test_server.py b/tests/test_server.py
+index bdab9f1..fbfb480 100644
+--- a/tests/test_server.py
++++ b/tests/test_server.py
+@@ -91,3 +91,34 @@ def test_download_path_is_sanitised(client, tmp_path, monkeypatch):
+     assert client.get("/files/4d1177f903a1/..%2Frequirements.txt").status_code in (400, 404)
+     assert client.get("/files/4d1177f903a1/..").status_code in (400, 404, 405)
+     assert client.get("/files/deadbeef12/nope.js").status_code == 404
++
++
++def test_compact_with_attached_audio_does_not_run_alignment(client, tmp_path, monkeypatch):
++    """Attached reference audio must not trigger DSP unless an aligned mode is selected."""
++    monkeypatch.setattr("app.server.EXPORT_ROOT", tmp_path / "exports")
++    midi = compose_demo(seed=5)
++    # Deliberately invalid audio: Compact must not attempt to decode it.
++    files = {"midi": ("song.mid", midi, "audio/midi"),
++             "audio": ("attached.wav", b"not audio and must stay unused", "audio/wav")}
++    r = client.post("/api/convert", files=files,
++                    data={"modes": "compact", "sound_mode": "native"})
++    assert r.status_code == 200, r.text
++    body = r.json()
++    assert "strudel_compact.js" in body["files"]
++    assert "audio_aligned.mid" not in body["files"]
++    assert body["diagnostics"]["alignment"] is None
++    assert any("audio DSP skipped" in w for w in body["diagnostics"]["warnings"])
++
++
++def test_unexpected_pipeline_error_is_json_not_plain_internal_server_error(client, tmp_path, monkeypatch):
++    monkeypatch.setattr("app.server.EXPORT_ROOT", tmp_path)
++    def boom(**kwargs):
++        raise RuntimeError("synthetic pipeline failure")
++    monkeypatch.setattr("app.server.run_pipeline", boom)
++    midi = compose_demo(seed=7)
++    r = client.post("/api/convert",
++                    files={"midi": ("song.mid", midi, "audio/midi")},
++                    data={"modes": "compact", "sound_mode": "native"})
++    assert r.status_code == 500
++    assert r.headers["content-type"].startswith("application/json")
++    assert "RuntimeError: synthetic pipeline failure" in r.json()["detail"]
+diff --git a/ui/app.js b/ui/app.js
+index 3f2dc77..bd3da54 100644
+--- a/ui/app.js
++++ b/ui/app.js
+@@ -1,4 +1,4 @@
+-const FRONTEND_BUILD_ID = 'e164fd6a744d182a';
++const FRONTEND_BUILD_ID = '65a722e08877de0b';
+ /* TREBLO MIDI→Strudel converter UI – talks to the local FastAPI server only. */
+ "use strict";
+ 
+@@ -95,8 +95,14 @@ $("go").addEventListener("click", async () => {
+   setStatus("converting…");
+   try {
+     const resp = await fetch("/api/convert", { method: "POST", body: fd, headers:{"X-TREBLO-Build":FRONTEND_BUILD_ID} });
+-    const data = await resp.json();
+-    if (!resp.ok) throw new Error(data.detail || resp.statusText);
++    const raw = await resp.text();
++    let data = null;
++    try { data = raw ? JSON.parse(raw) : {}; }
++    catch (_) {
++      const preview = raw.trim().slice(0, 240) || resp.statusText || "empty response";
++      throw new Error(`HTTP ${resp.status}: backend returned non-JSON response: ${preview}`);
++    }
++    if (!resp.ok) throw new Error(data.detail || `HTTP ${resp.status} ${resp.statusText}`);
+     state.job = data.job_id;
+     state.codeCache = {};
+     renderResults(data);
