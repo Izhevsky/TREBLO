@@ -1,0 +1,49 @@
+name: DrumSep v2.6 REAL checkpoint CPU smoke (synthetic only)
+on:
+  pull_request:
+    paths:
+      - 'tools/mastering/drumsep_real_smoke.py'
+      - 'tools/mastering/drumsep_6stem_float_bridge.py'
+      - 'tests/test_drumsep_real_smoke.py'
+      - '.github/workflows/drumsep_real_cpu_smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  real-checkpoint-cpu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONPATH: tools/mastering
+      OMP_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CPU-only PyTorch
+        run: |
+          python -m pip install --disable-pip-version-check torch --index-url https://download.pytorch.org/whl/cpu
+      - name: Install SHA-pinned, reviewed mdxnet-infer package
+        run: |
+          python -m pip install --disable-pip-version-check 'mdxnet-infer @ git+https://github.com/openmirlab/mdxnet-infer.git@cb4779eedeca4f55ba498df8e234e2b5f4b90aaf'
+          python -m pip install --disable-pip-version-check soundfile numpy
+      - name: Local unit tests (no real weights)
+        run: python -m unittest discover -s tests -p 'test_drumsep_real_smoke.py' -v
+      - name: Run real MDX23C inference with verified weights on generated 2-second drums
+        run: |
+          python tools/mastering/drumsep_real_smoke.py \
+            --workdir /tmp/treblo-drumsep-real \
+            --cache-dir /tmp/treblo-weights \
+            --device cpu \
+            --allow-download
+      - name: Preserve ONLY QC metadata (no weights, no user audio)
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: real-drumsep-synthetic-qc
+          path: /tmp/treblo-drumsep-real/real_smoke_qc.json
+          retention-days: 7
