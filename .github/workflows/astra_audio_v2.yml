@@ -6,6 +6,7 @@ on:
       - 'tools/mastering/msst_bridge.py'
       - 'tools/mastering/stem_delta_rework.py'
       - 'tools/mastering/make_ab.py'
+      - 'tools/mastering/codec_mono_qc.py'
       - 'tests/test_*.py'
       - '.github/workflows/astra_audio_v2.yml'
   workflow_dispatch:
