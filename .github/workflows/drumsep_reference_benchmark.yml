@@ -4,6 +4,8 @@ on:
     paths:
       - 'tools/mastering/drumsep_reference_benchmark.py'
       - 'tests/test_drumsep_reference_benchmark.py'
+      - 'tools/mastering/neural_kick_guard.py'
+      - 'tests/test_neural_kick_guard.py'
       - '.github/workflows/drumsep_reference_benchmark.yml'
   workflow_dispatch:
 permissions:
@@ -40,3 +42,5 @@ jobs:
           name: drumsep-v27-synthetic-reference-qc
           path: /tmp/drumsep-reference-benchmark-v27.json
           retention-days: 7
+      - name: Offline kick-only safety-gate tests
+        run: python -m unittest discover -s tests -p 'test_neural_kick_guard.py' -v
