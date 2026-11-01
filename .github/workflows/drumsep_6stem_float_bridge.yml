@@ -1,0 +1,20 @@
+name: DrumSep v2.5 float neural adapter tests
+on:
+  pull_request:
+    paths:
+      - 'tools/mastering/drumsep_6stem_float_bridge.py'
+      - 'tests/test_drumsep_6stem_float_bridge.py'
+      - '.github/workflows/drumsep_6stem_float_bridge.yml'
+  workflow_dispatch:
+jobs:
+  offline-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install only numerical test dependencies (no model downloads)
+        run: python -m pip install 'numpy>=1.26,<3' 'soundfile>=0.12'
+      - name: Run offline adapter unit tests
+        run: python -m unittest discover -s tests -p 'test_drumsep_6stem_float_bridge.py' -v
