@@ -1,0 +1,18 @@
+name: TREBLO Astra v2.9 verified v2.3 lineage
+on:
+  pull_request:
+    paths:
+      - 'tools/mastering/verified_v23_baseline.py'
+      - 'tests/test_verified_v23_baseline.py'
+      - '.github/workflows/verified_v23_baseline.yml'
+  workflow_dispatch:
+jobs:
+  verify-safe-tools:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install 'numpy>=1.26,<3' 'soundfile>=0.12'
+      - run: PYTHONPATH=tools/mastering python -m unittest discover -s tests -p 'test_verified_v23_baseline.py' -v
