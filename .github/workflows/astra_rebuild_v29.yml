@@ -1,1 +1,21 @@
-The requested file reference is not currently visible. Use files.search or files.list to rediscover the file, then retry with a returned ref_id or file_id.
+name: TREBLO Astra v2.9 reconstruct unlimited v2.3 offline checks
+on:
+  pull_request:
+    paths:
+      - 'tools/mastering/rebuild_v23_unlimited.py'
+      - 'tools/mastering/verify_rebuild_v23.py'
+      - 'tools/mastering/REBUILD_V2_9_RU.md'
+      - 'tests/test_rebuild_v23_unlimited.py'
+      - '.github/workflows/astra_rebuild_v29.yml'
+  workflow_dispatch:
+jobs:
+  cpu-rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: python -m pip install 'numpy>=1.26,<3' 'scipy>=1.12,<2' 'soundfile>=0.12' 'pedalboard>=0.9,<1'
+      - run: PYTHONPATH=tools/mastering python -m unittest discover -s tests -p 'test_rebuild_v23_unlimited.py' -v
