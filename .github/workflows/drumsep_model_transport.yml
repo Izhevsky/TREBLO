@@ -1,0 +1,50 @@
+name: TREBLO DrumSep temporary model transport (research only)
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/drumsep_model_transport.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  stage-verified-checkpoint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact reviewed inference library
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'mdxnet-infer @ git+https://github.com/openmirlab/mdxnet-infer.git@cb4779eedeca4f55ba498df8e234e2b5f4b90aaf'
+      - name: Download SHA-pinned model and stage python module without any user audio
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import shutil, hashlib, json
+          import mdxnet_infer
+          from mdxnet_infer import MDX23CInference
+          from mdxnet_infer.checkpoint_catalog import get_checkpoint_metadata
+          a=get_checkpoint_metadata('drumsep-6stem')
+          assert a['checkpoint_sha256']=='d2a4aa53eb584d21eead358a4e66d1882ad182911be018f052b5da73be9096d0'
+          assert a['config_sha256']=='17d1649a227f841165bdb4c11a42082898192a1ea3ceab7e7e0b9293d6589dd6'
+          out=Path('stage_drums_model');out.mkdir()
+          w=out/'weights';w.mkdir()
+          ck,conf=MDX23CInference.download_model('drumsep-6stem',cache_dir=w,progress=True)
+          sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+          assert sha(ck)==a['checkpoint_sha256'] and sha(conf)==a['config_sha256']
+          shutil.copytree(Path(mdxnet_infer.__file__).parent,out/'mdxnet_infer')
+          info={'status':'SHA256_VERIFIED','model':'drumsep-6stem','checkpoint':Path(ck).name,'checkpoint_sha256':sha(ck),'config':Path(conf).name,'config_sha256':sha(conf),'code_rev':'cb4779eedeca4f55ba498df8e234e2b5f4b90aaf','source_audio_uploaded':False,'rights':'NON_COMMERCIAL_RESEARCH_ONLY_UNCLEAR_LICENSE'}
+          (out/'MANIFEST.json').write_text(json.dumps(info,indent=2))
+          print('CHECKPOINT_STAGE_VERIFIED',info)
+          PY
+      - name: Store temporary local-research staging artifact only (no music)
+        uses: actions/upload-artifact@v4
+        with:
+          name: treblo-drumsep-v30-private-research-stage
+          path: stage_drums_model/
+          retention-days: 1
+          compression-level: 0
+          if-no-files-found: error
